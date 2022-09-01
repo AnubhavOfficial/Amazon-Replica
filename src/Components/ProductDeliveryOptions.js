@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     marginTop: "0.5rem",
     cursor: "pointer",
     "&:hover": {
-      color: "#eb9317",
+      color: "#C7511F",
     },
   },
 });

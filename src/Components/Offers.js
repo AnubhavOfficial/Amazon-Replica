@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   card: {
     width: "10vw",
     height: "15vh",
-    padding: "0.5rem",
+    padding: "0.7rem",
     marginRight: "0.8rem",
     boxShadow: "0px 0px 3px 2px #D3D3D3",
   },
@@ -34,6 +34,7 @@ const useStyles = makeStyles({
     lineHeight: "1.1rem",
     marginTop: "0.5rem",
     height: "3.7rem",
+    letterSpacing: "0.7px",
   },
   offer: {
     display: "flex",
@@ -103,7 +104,7 @@ function Offers() {
       <Card className={classes.card}>
         <Typography className={classes.title}>No Cost EMI</Typography>
         <Typography className={classes.text}>
-          No Cost EMI available on Amazon Pay Later.{" "}
+          No Cost EMI available on Amazon Pay Later.
         </Typography>
         <Typography
           className={classes.offer}

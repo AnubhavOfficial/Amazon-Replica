@@ -7,12 +7,14 @@ import { makeStyles } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import StarRatings from "react-star-ratings";
 import Divider from "@material-ui/core/Divider";
-import { BsCurrencyDollar } from "react-icons/bs";
 import AddBanner1 from "../Assets/images/amazonAddBanner1.jpg";
 import AddBanner2 from "../Assets/images/amazonAddBanner2.jpg";
 import AddBanner3 from "../Assets/images/amazonAddBanner3.jpg";
 import AddBanner4 from "../Assets/images/amazonAddBanner4.jpg";
 import ProductDeliveryOptions from "./ProductDeliveryOptions";
+import { TbDiscount2 } from "react-icons/tb";
+import { BiRupee } from "react-icons/bi";
+import Offers from "./Offers";
 
 const useStyles = makeStyles({
   main: {
@@ -70,7 +72,22 @@ const useStyles = makeStyles({
     color: "#007185",
     fontSize: "1rem",
   },
-  priceDiv: {},
+  offersDiv: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  offerTitle: {
+    display: "flex",
+    alignItems: "center",
+    fontWeight: "bold",
+    fontSize: "1rem",
+  },
+  offerIcon: {
+    color: "#C7511F",
+    fontSize: "1.8rem",
+    marginRight: "1rem",
+    fontWeight: "bolder",
+  },
   price: {
     fontSize: "1.7rem",
     margin: "0.5rem 0 0 0 ",
@@ -88,8 +105,8 @@ const useStyles = makeStyles({
   divider: {
     margin: "0.5rem 0",
   },
-  dollar: {
-    fontSize: "1.1rem",
+  rupee: {
+    fontSize: "1.5rem",
   },
   addToCart: {
     background: "#FFD814",
@@ -141,6 +158,10 @@ const ProductDescription = () => {
     var newWord = word.charAt(0).toUpperCase() + word.substring(1, word.length);
     return newWord;
   };
+  const rupeeCalculate = (val) => {
+    const dec = Math.ceil(val);
+    return dec;
+  };
   return (
     <div className={classes.main}>
       <a href="https://www.primevideo.com/" target="blank">
@@ -191,13 +212,22 @@ const ProductDescription = () => {
           <Divider className={classes.divider} />
           <div className={classes.priceDiv}>
             <Typography className={classes.price}>
-              <BsCurrencyDollar className={classes.dollar} />
-              {product.price}
+              <BiRupee className={classes.rupee} />
+              {rupeeCalculate(product.price * 79.67)}
             </Typography>
             <Typography className={classes.taxes}>
               Inclusive of all taxes
             </Typography>
           </div>
+          <Divider className={classes.divider} />
+          <div className={classes.offersDiv}>
+            <Typography className={classes.offerTitle}>
+              <TbDiscount2 className={classes.offerIcon} /> Offers
+            </Typography>
+            <Offers />
+          </div>
+          <Divider className={classes.divider} />
+          <ProductDeliveryOptions />
           <Divider className={classes.divider} />
           <div className={classes.descriptionDiv}>
             <Typography className={classes.description}>
@@ -212,8 +242,6 @@ const ProductDescription = () => {
               );
             })}
           </div>
-          <Divider className={classes.divider} />
-          <ProductDeliveryOptions />
           <Divider className={classes.divider} />
           <Button className={classes.addToCart}>Add to Cart</Button>
         </div>

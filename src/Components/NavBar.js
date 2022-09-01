@@ -60,7 +60,7 @@ const useStyles = makeStyles({
   searchBtn: {
     width: "3rem",
     minWidth: "2rem",
-    height: "2.7rem",
+    height: "2.6rem",
     borderRadius: "0.3rem",
     border: "none",
     background: "#FEBD69",

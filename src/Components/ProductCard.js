@@ -55,7 +55,10 @@ const useStyles = makeStyles({
     fontSize: "1rem",
   },
 });
-
+const rupeeCalculate = (val) => {
+  const dec = Math.ceil(val);
+  return dec;
+};
 const ProductCard = ({ item }) => {
   const classes = useStyles();
   return (
@@ -63,7 +66,7 @@ const ProductCard = ({ item }) => {
       <img src={item.image} alt="" className={classes.image} />
       <Typography className={classes.title}>{item.title}</Typography>
       <div className={classes.footer}>
-        <Typography>${item.price}</Typography>
+        <Typography> ₹ {rupeeCalculate(item.price * 79.67)}</Typography>
         <span title={item.rating.rate + " out of 5"} className={classes.rating}>
           <StarRatings
             rating={item.rating.rate}
