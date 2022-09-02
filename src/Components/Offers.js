@@ -40,10 +40,11 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     fontSize: "0.8rem",
-    color: "#0a8cc2",
+    color: "#007185",
     "&:hover": {
       cursor: "pointer",
       textDecoration: "underline",
+      color: "#C7511F",
     },
   },
   modal: {
@@ -54,11 +55,17 @@ const useStyles = makeStyles({
   close: {
     position: "fixed",
     right: 5,
+    top: 12,
     fontSize: "1.5rem",
     height: "3rem",
+    zIndex: "2",
     "&:hover": {
       background: "transparent",
     },
+  },
+  offerIcon: {
+    fontSize: "0.6rem",
+    marginLeft: "0.2rem",
   },
 });
 function Offers() {
@@ -77,15 +84,22 @@ function Offers() {
         anchor="right"
         open={drawerOpen}
         onClose={() => toggleDrawer(false)}
+        transitionDuration={400}
       >
         <div className={classes.modal}>
-          <Button onClick={() => toggleDrawer(false)} className={classes.close}>
+          {/* <Button onClick={() => toggleDrawer(false)} className={classes.close}>
             &#10006;
-          </Button>
+          </Button> */}
 
-          {modalType === "NoCostEmiModal" && <NoCostEmiModal />}
-          {modalType === "BankOfferModal" && <BankOfferModal />}
-          {modalType === "PartnerOffersModal" && <PartnerOffersModal />}
+          {modalType === "NoCostEmiModal" && (
+            <NoCostEmiModal toggleDrawer={toggleDrawer} />
+          )}
+          {modalType === "BankOfferModal" && (
+            <BankOfferModal toggleDrawer={toggleDrawer} />
+          )}
+          {modalType === "PartnerOffersModal" && (
+            <PartnerOffersModal toggleDrawer={toggleDrawer} />
+          )}
 
           {/* {(() => {
             switch (modalType) {
@@ -113,7 +127,7 @@ function Offers() {
             toggleDrawer(true);
           }}
         >
-          1 offer <AiOutlineRight />
+          1 offer <AiOutlineRight className={classes.offerIcon} />
         </Typography>
       </Card>
       <Card className={classes.card}>
@@ -128,7 +142,7 @@ function Offers() {
             toggleDrawer(true);
           }}
         >
-          1 offer <AiOutlineRight />
+          2 offers <AiOutlineRight className={classes.offerIcon} />
         </Typography>
       </Card>
       <Card className={classes.card}>
@@ -143,7 +157,7 @@ function Offers() {
             toggleDrawer(true);
           }}
         >
-          1 offer <AiOutlineRight />
+          1 offer <AiOutlineRight className={classes.offerIcon} />
         </Typography>
       </Card>
     </div>

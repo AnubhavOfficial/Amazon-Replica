@@ -3,7 +3,9 @@ import { makeStyles, Typography } from "@material-ui/core";
 import { FaHandHoldingUsd } from "react-icons/fa";
 import { BsBoxSeam } from "react-icons/bs";
 import { BsShieldCheck } from "react-icons/bs";
-import { ImTruck } from "react-icons/im";
+import { TbTruckDelivery } from "react-icons/tb";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { SiDropbox } from "react-icons/si";
 
 const useStyles = makeStyles({
   main: {
@@ -13,8 +15,8 @@ const useStyles = makeStyles({
   icon: {
     width: "2rem",
     height: "2rem",
-    color: "#0a8cc2",
-    // background: "red",
+    // color: "#007185",
+    color: "skyblue",
   },
   iconDiv: {
     display: "flex",
@@ -25,7 +27,7 @@ const useStyles = makeStyles({
   },
   text: {
     fontSize: "0.8rem",
-    color: "#0a8cc2",
+    color: "#007185",
     marginTop: "0.5rem",
     cursor: "pointer",
     "&:hover": {
@@ -45,21 +47,21 @@ function ProductDeliveryOptions() {
         className={classes.iconDiv}
         onClick={() => detailsModal("cashOnDelivery")}
       >
-        <FaHandHoldingUsd className={classes.icon} />
+        <GiTakeMyMoney className={classes.icon} />
         <Typography className={classes.text}>Cash on Delivery</Typography>
       </div>
       <div
         className={classes.iconDiv}
         onClick={() => detailsModal("notReturnable")}
       >
-        <BsBoxSeam className={classes.icon} />
+        <SiDropbox className={classes.icon} />
         <Typography className={classes.text}>Not Returnable</Typography>
       </div>
       <div
         className={classes.iconDiv}
         onClick={() => detailsModal("amazonDelivered")}
       >
-        <ImTruck className={classes.icon} />
+        <TbTruckDelivery className={classes.icon} />
         <Typography className={classes.text}>Amazon Delivered</Typography>
       </div>
       <div className={classes.iconDiv} onClick={() => detailsModal("warrenty")}>
