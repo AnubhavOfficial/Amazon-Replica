@@ -126,6 +126,7 @@ const useStyles = makeStyles({
   termsInnerHeading: {
     fontSize: "0.78rem",
     fontWeight: "bold",
+    marginTop: "0.5rem",
   },
   offerTitle: {
     fontSize: "1rem",
@@ -144,6 +145,27 @@ const useStyles = makeStyles({
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
+  },
+  partnerHeading: {
+    fontSize: "1.15rem",
+  },
+  promotionTermsDiv: {
+    marginLeft: "1rem",
+  },
+  promotionTerms: {
+    fontSize: "1.05rem",
+    fontWeight: "bold",
+    marginTop: "1rem",
+  },
+  ol: {
+    margin: "0",
+    padding: "0",
+    marginTop: "0.3rem",
+    paddingLeft: "0.8rem",
+    fontSize: "0.78rem",
+  },
+  noteMargin: {
+    marginTop: "0.3rem",
   },
 });
 export const NoCostEmiModal = (props) => {
@@ -268,7 +290,7 @@ export const NoCostEmiModal = (props) => {
               option (""<b>No Cost EMI</b>"")
             </Typography>
             <ul className={classes.ulTerms}>
-              <li className={classes.termsBody}>
+              <li className={`${classes.termsBody} ${classes.listItem}`}>
                 The No Cost EMI facility is being offered to the customers who
                 make a purchase transaction on{" "}
                 <a
@@ -479,9 +501,7 @@ export const BankOfferModal = (props) => {
       {backShow && offer1 && (
         <div className={classes.body}>Offer 1 Clicked</div>
       )}
-      {backShow && offer2 && (
-        <div className={classes.body}>Offer 2 Clicked</div>
-      )}
+      {backShow && offer2 && <div className={classes.body}>Offer2</div>}
       {!backShow && (
         <div className={classes.body}>
           <Typography className={classes.offerTitle}>Offer 1</Typography>
@@ -526,6 +546,102 @@ export const BankOfferModal = (props) => {
     </div>
   );
 };
-export const PartnerOffersModal = () => {
-  return <div>PartnerOffersModal</div>;
+export const PartnerOffersModal = (props) => {
+  const classes = useStyles();
+  return (
+    <div>
+      <div className={classes.headerDiv}>
+        <Typography className={classes.header}>Partner Offers</Typography>
+        <Button
+          className={classes.close}
+          onClick={() => {
+            props.toggleDrawer(false);
+          }}
+        >
+          &#10006;
+        </Button>
+      </div>
+      <div className={classes.body}>
+        <Typography className={classes.partnerHeading}>
+          Get GST invoice and save up to 28% on business purchases.{" "}
+          <a
+            href="https://www.amazon.in/business/register/org/landing"
+            target="blank"
+            className={classes.amazonLink}
+          >
+            Sign up for free
+          </a>
+        </Typography>
+        <div className={classes.promotionTermsDiv}>
+          <Typography className={classes.promotionTerms}>
+            Promotion Terms
+          </Typography>
+          <Typography className={classes.termsInnerHeading}>
+            Amazon Business provides purchasing solutions that lets registered
+            businesses shop for business supplies on Amazon.
+          </Typography>
+          <Typography className={classes.termsBody}>
+            Additionally, you will receive business invoices which would list
+            your company/organization name, GST number (if applicable) and
+            Purchase Order (PO) number (provided you have added the PO number
+            while ordering).
+          </Typography>
+          <Typography className={classes.termsBody}>
+            Want to register for free? Here’s how:
+          </Typography>
+          <ol className={classes.ol}>
+            <li>
+              <Typography className={classes.termsBody}>
+                Create a free business account
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                To register your business, you either need to create a new
+                business account on Amazon.in or convert your existing personal
+                account on Amazon.in to a business account.
+              </Typography>
+            </li>
+            <Typography className={classes.termsInnerHeading}>Note:</Typography>
+
+            <Typography
+              className={`${classes.termsBody} ${classes.noteMargin}`}
+            >
+              - If you’re converting your Mobile Only Account (MOA) to a
+              business account, then you will be required to add an email
+              address. Once your business is registered, you either use your
+              mobile number or email address to login.
+            </Typography>
+            <Typography
+              className={`${classes.termsBody} ${classes.noteMargin}`}
+            >
+              - You won’t be able to register your business if you don’t have a
+              valid GST number.
+            </Typography>
+            <Typography
+              className={`${classes.termsBody} ${classes.noteMargin}`}
+            >
+              - Keep your GST certificate handy as you will be prompted to enter
+              few details from the certificate.
+            </Typography>
+
+            <li>
+              <Typography
+                className={`${classes.termsBody} ${classes.listItem}`}
+              >
+                To go through the frequently asked questions (FAQs), visit:
+                Amazon Business - FAQs
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                To go through Amazon Business Accounts Terms and Conditions
+                (T&Cs), visit: Amazon Business – T&Cs
+              </Typography>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  );
 };

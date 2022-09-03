@@ -15,6 +15,7 @@ import ProductDeliveryOptions from "./ProductDeliveryOptions";
 import { TbDiscount2 } from "react-icons/tb";
 import { BiRupee } from "react-icons/bi";
 import Offers from "./Offers";
+import { BiChevronLeft } from "react-icons/bi";
 
 const useStyles = makeStyles({
   main: {
@@ -38,9 +39,13 @@ const useStyles = makeStyles({
   },
   backBtn: {
     textTransform: "none",
-    fontSize: "1rem",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "1.1rem",
+    color: "#007185",
     "&:hover": {
       background: "transparent",
+      textDecoration: "underline",
     },
   },
   image: {
@@ -90,7 +95,6 @@ const useStyles = makeStyles({
   },
   price: {
     fontSize: "1.7rem",
-    margin: "0.5rem 0 0 0 ",
     display: "flex",
     alignItems: "center",
   },
@@ -106,7 +110,9 @@ const useStyles = makeStyles({
     margin: "0.5rem 0",
   },
   rupee: {
-    fontSize: "1.5rem",
+    fontSize: "1.3rem",
+    // fontWeight: "bold",
+    // strokeWidth: "-1",
   },
   addToCart: {
     background: "#FFD814",
@@ -172,7 +178,7 @@ const ProductDescription = () => {
       </a>
       <Link to="/" className={classes.link}>
         <Button className={classes.backBtn}>
-          <ArrowBack /> &nbsp; Go back to All Products
+          <BiChevronLeft /> <Typography>Back to products</Typography>
         </Button>
       </Link>
       <div className={classes.productInfo}>
