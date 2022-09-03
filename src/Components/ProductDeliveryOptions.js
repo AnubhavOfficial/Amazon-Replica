@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { Button, makeStyles, Typography } from "@material-ui/core";
 // import { FaHandHoldingUsd } from "react-icons/fa";
 // import { BsBoxSeam } from "react-icons/bs";
 import { BsShieldCheck } from "react-icons/bs";
@@ -37,10 +37,10 @@ const useStyles = makeStyles({
   },
   popover: {
     padding: "1rem",
-    background: "#f7f5f5",
+    background: "#e6e3e3",
     width: "35vw",
     borderRadius: "0.5rem",
-    border: "1px solid grey",
+    // border: "1px solid grey",
     // boxShadow: "2px 2px  5px 1px grey",
   },
   heading: {
@@ -49,11 +49,25 @@ const useStyles = makeStyles({
   },
   description: {
     fontSize: "0.9rem",
-    marginTop: "1rem",
+    // marginTop: "1rem",
   },
   arrow: {
-    border: "1px solid red",
+    // border: "1px solid red",
     // boxShadow: "2px 2px  5px 1px grey",
+  },
+  close: {
+    color: "black",
+    fontSize: "1rem",
+    height: "3rem",
+    cursor: "pointer",
+    "&:hover": {
+      background: "transparent",
+    },
+  },
+  popoverHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "start",
   },
 });
 
@@ -78,16 +92,26 @@ function ProductDeliveryOptions() {
             position={position}
             childRect={childRect}
             popoverRect={popoverRect}
-            arrowColor={"#f7f5f5"}
+            arrowColor={"#e6e3e3"}
             arrowSize={10}
             arrowStyle={{ opacity: 1 }}
             // className={classes.popover}
             arrowClassName={classes.arrow}
           >
             <div className={classes.popover}>
-              <Typography className={classes.heading}>
-                What is Cash on Delivery (Cash/Card)?
-              </Typography>
+              <div className={classes.popoverHeader}>
+                <Typography className={classes.heading}>
+                  What is Cash on Delivery (Cash/Card)?
+                </Typography>
+                <Typography
+                  className={classes.close}
+                  onClick={() => {
+                    setIsPopoverOpen(false);
+                  }}
+                >
+                  &#10006;
+                </Typography>
+              </div>
               <Typography className={classes.description}>
                 Cash on Delivery (COD) payment includes both cash as well as
                 Debit card/Credit card/Net banking payments at your doorstep.
