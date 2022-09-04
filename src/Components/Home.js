@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
   main: {
     marginTop: "2.8rem",
-    backgroundImage: "linear-gradient(180deg ,#0E032E 50%, #ffffff)",
+    // backgroundImage: "linear-gradient(180deg ,#0E032E 50%, #ffffff)",
     paddingBottom: "2rem",
   },
 });

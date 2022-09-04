@@ -13,8 +13,6 @@ const useStyles = makeStyles({
     marginTop: "2rem",
     borderRadius: "1rem",
     cursor: "pointer",
-    // opacity: 0.8,
-    "&:hover": {},
   },
   title: {
     height: "2rem",
@@ -25,7 +23,7 @@ const useStyles = makeStyles({
     marginTop: "0.5rem",
   },
   image: {
-    height: "75%",
+    height: "70%",
     width: "80%",
     marginTop: "0.5rem",
     backgroundRepeat: "no-repeat",
@@ -38,14 +36,14 @@ const useStyles = makeStyles({
     background: "transparent",
   },
   addToCart: {
-    background: "#FFD814",
+    background: "#FEBD69",
     height: "2rem",
     width: "8rem",
     borderRadius: "0.5rem",
     marginTop: "0.5rem",
     "&:hover": {
-      background: "#F7CA00",
-      transform: "scale(1.05)",
+      background: "#FEBD69",
+      // transform: "scale(1.05)",
     },
   },
   rating: {
@@ -59,11 +57,12 @@ const useStyles = makeStyles({
   },
   hoverText: {
     position: "relative",
-    top: "85%",
+    top: "50%",
     // left: "0",
     border: "1px solid grey",
     background: "#F7FAFA",
-    width: "100%",
+    width: "50%",
+    margin: "auto",
     height: "2rem",
     borderRadius: "0.5rem",
     boxShadow: "0.5px 0.5px 2px 0px grey",
@@ -121,7 +120,7 @@ const ProductCard = ({ item }) => {
           <Typography className={classes.count}>{item.rating.count}</Typography>
         </span>
       </div>
-      {/* <Button className={classes.addToCart}>Add to Cart</Button> */}
+      <Button className={classes.addToCart}>Show Now</Button>
     </Card>
   );
 };
