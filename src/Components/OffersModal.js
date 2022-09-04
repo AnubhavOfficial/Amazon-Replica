@@ -34,7 +34,6 @@ const useStyles = makeStyles({
   text1: {
     fontWeight: "bold",
     fontSize: "0.9rem",
-    // paddingTop: "0.5rem",
   },
   heading: {
     fontSize: "1.15rem",
@@ -1300,13 +1299,6 @@ export const BankOfferModal = (props) => {
           </ol>
           <br />
           <br />
-          {/* kdjbaskjc ackijasbcksbc skb skcb sbcsjhdv  hv */}
-          {/* kdjbaskjc ackijasbcksbc skb skcb sbcsjhdv  hv */}
-          {/* kdjbaskjc ackijasbcksbc skb skcb sbcsjhdv  hv */}
-          {/* kdjbaskjc ackijasbcksbc skb skcb sbcsjhdv  hv */}
-
-          {/* kdjbaskjc ackijasbcksbc skb skcb sbcsjhdv  hv */}
-
           <Divider className={classes.divider} />
           <Typography className={classes.availOffer}>
             How to avail offer

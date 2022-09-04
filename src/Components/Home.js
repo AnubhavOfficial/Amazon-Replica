@@ -11,10 +11,6 @@ const useStyles = makeStyles({
     backgroundRepeat: "no-repeat",
     backgroundSize: "100vw 70vh",
     height: "70vh",
-    // marginLeft: "0.7vw",
-  },
-  grid: {
-    // marginTop: "1rem",
   },
   gridItem: {
     display: "flex",
@@ -25,7 +21,6 @@ const useStyles = makeStyles({
   },
   main: {
     marginTop: "2.8rem",
-    // backgroundImage: "linear-gradient(180deg ,#0E032E 50%, #ffffff)",
     paddingBottom: "2rem",
   },
 });

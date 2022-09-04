@@ -16,7 +16,6 @@ const useStyles = makeStyles({
   icon: {
     width: "2rem",
     height: "2rem",
-    // color: "#007185",
     color: "skyblue",
   },
   iconDiv: {
@@ -69,7 +68,6 @@ const useStyles = makeStyles({
     marginTop: "1rem",
     justifyContent: "space-between",
     alignItems: "start",
-    // flexDirection: "column",
   },
   returnIcons: {
     fontSize: "3.5rem",

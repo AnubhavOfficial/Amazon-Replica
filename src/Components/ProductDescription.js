@@ -22,8 +22,6 @@ const useStyles = makeStyles({
     padding: "1rem",
   },
   addBanner: {
-    // width: "100%",
-    // height:
     backgroundSize: "70vw 10vh",
     backgroundRepeat: "no-repeat",
     height: "10vh",
@@ -110,8 +108,6 @@ const useStyles = makeStyles({
   },
   rupee: {
     fontSize: "1.3rem",
-    // fontWeight: "bold",
-    // strokeWidth: "-1",
   },
   addToCart: {
     background: "#FFD814",

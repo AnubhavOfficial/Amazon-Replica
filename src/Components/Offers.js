@@ -46,17 +46,6 @@ const useStyles = makeStyles({
     width: "38vw",
     overflowY: "scroll",
   },
-  close: {
-    position: "fixed",
-    right: 5,
-    top: 12,
-    fontSize: "1.5rem",
-    height: "3rem",
-    zIndex: "2",
-    "&:hover": {
-      background: "transparent",
-    },
-  },
   offerIcon: {
     fontSize: "0.6rem",
     marginLeft: "0.2rem",
@@ -81,10 +70,6 @@ function Offers() {
         transitionDuration={400}
       >
         <div className={classes.modal}>
-          {/* <Button onClick={() => toggleDrawer(false)} className={classes.close}>
-            &#10006;
-          </Button> */}
-
           {modalType === "NoCostEmiModal" && (
             <NoCostEmiModal toggleDrawer={toggleDrawer} />
           )}
@@ -94,19 +79,6 @@ function Offers() {
           {modalType === "PartnerOffersModal" && (
             <PartnerOffersModal toggleDrawer={toggleDrawer} />
           )}
-
-          {/* {(() => {
-            switch (modalType) {
-              case "NoCostEmiModal":
-                return <NoCostEmiModal />;
-              case "BankOfferModal":
-                return <BankOfferModal />;
-              case "PartnerOffersModal":
-                return <PartnerOffersModal />;
-              default:
-                return <></>;
-            }
-          })()} */}
         </div>
       </Drawer>
       <Card className={classes.card}>

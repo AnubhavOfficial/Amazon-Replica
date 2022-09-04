@@ -43,7 +43,6 @@ const useStyles = makeStyles({
     marginTop: "0.5rem",
     "&:hover": {
       background: "#FEBD69",
-      // transform: "scale(1.05)",
     },
   },
   rating: {
@@ -58,7 +57,6 @@ const useStyles = makeStyles({
   hoverText: {
     position: "relative",
     top: "50%",
-    // left: "0",
     border: "1px solid grey",
     background: "#F7FAFA",
     width: "50%",

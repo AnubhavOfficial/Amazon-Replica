@@ -12,7 +12,6 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 const useStyles = makeStyles({
   appbar: {
     background: "#131921",
-    // height: "3rem",
   },
   toolbar: {
     margin: 0,
@@ -22,7 +21,6 @@ const useStyles = makeStyles({
     width: "6.7rem",
     height: "1.9rem",
     marginTop: "0.2rem",
-    // marginLeft: "0.5rem",
   },
   location: {
     display: "flex",
@@ -127,13 +125,9 @@ const useStyles = makeStyles({
     fontSize: "0.7rem",
     display: "flex",
     justifyContent: "center",
-    // alignItems: "center",
-    // textAlign: "center",
   },
   cartIcon: {
     fontSize: "1.9rem",
-    // height: "2rem",
-    // width: "2rem",
   },
 });
 
@@ -141,7 +135,6 @@ function NavBar() {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [signedIn, setSignedIn] = useState(false);
-  // const [count, setCount] = useState(0);
 
   const onSignIn = () => {
     if (signedIn) {
@@ -152,9 +145,6 @@ function NavBar() {
       setName("Anubhav");
     }
   };
-  // const AddToCart = () => {
-  //   setCount(count + 1);
-  // };
   return (
     <div>
       <AppBar className={classes.appbar}>
