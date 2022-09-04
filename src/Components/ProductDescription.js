@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Button } from "@material-ui/core";
-import { ArrowBack } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import StarRatings from "react-star-ratings";
@@ -201,8 +200,8 @@ const ProductDescription = () => {
                   starRatedColor="#FFA41C"
                   numberOfStars={5}
                   name="rating"
-                  starDimension="20px"
-                  starSpacing="3px"
+                  starDimension="1.2rem"
+                  starSpacing="0.15rem"
                 />
                 <Typography className={classes.count}>
                   {product.rating.count}

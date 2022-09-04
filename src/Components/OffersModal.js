@@ -1,6 +1,8 @@
 import { Button, Divider, makeStyles, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { BiChevronDown, BiChevronRight, BiChevronLeft } from "react-icons/bi";
+import Moment from "moment";
+
 const useStyles = makeStyles({
   headerDiv: {
     background: "#F5F6F7",
@@ -15,13 +17,9 @@ const useStyles = makeStyles({
     top: 0,
   },
   close: {
-    // position: "fixed",
-    // right: 5,
-    // top: 12,
     color: "black",
     fontSize: "1.5rem",
     height: "3rem",
-    // zIndex: "2",
     "&:hover": {
       background: "transparent",
     },
@@ -166,6 +164,26 @@ const useStyles = makeStyles({
   },
   noteMargin: {
     marginTop: "0.3rem",
+  },
+  headerOffer: {
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+  },
+  descOffer: {
+    fontSize: "1.3rem",
+    lineHeight: "1.3",
+    margin: "1.5rem 0",
+  },
+  promotionTermsOffer: {
+    fontSize: "1.2rem",
+    margin: "1rem",
+    fontWeight: "bold",
+  },
+  "@global": {
+    "ol > li": {
+      paddingLeft: "1rem",
+      marginTop: "0.5rem",
+    },
   },
 });
 export const NoCostEmiModal = (props) => {
@@ -464,6 +482,42 @@ export const BankOfferModal = (props) => {
     setOffer1(false);
     setOffer2(false);
   };
+  const dayTh = (d) => {
+    if (d > 3 && d < 21) return "th";
+    switch (d % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+  const getDate = (val) => {
+    const current = new Date();
+    const day = current.getDate() + val;
+    const d = dayTh(day);
+    const month = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ][current.getMonth()];
+    const year = current.getFullYear();
+    if (val === 0) return day + d + " " + month;
+
+    return day + d + " " + month + " " + year;
+  };
   return (
     <div>
       {backShow ? (
@@ -499,9 +553,369 @@ export const BankOfferModal = (props) => {
       )}
 
       {backShow && offer1 && (
-        <div className={classes.body}>Offer 1 Clicked</div>
+        <div className={classes.body}>
+          <Typography className={classes.headerOffer}>Offer 1</Typography>
+          <Typography className={classes.descOffer}>
+            5% Instant Discount up to INR 250 on HSBC Cashback Card Credit Card
+            Transactions. Minimum purchase value INR 1000
+          </Typography>
+          <Typography className={classes.promotionTermsOffer}>
+            Promotion Terms
+          </Typography>
+          <center>
+            <Typography className={classes.termsInnerHeading}>
+              Frequently Asked Questions (FAQs)
+            </Typography>
+          </center>
+          <ol className={classes.ol}>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                What is the offer?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                Get 5% Instant Discount with HSBC Cashback Credit Card, on
+                purchase of any eligible product listed on Amazon.in Between
+                July 01, 2022 to March 31, 2023. Please check the product page
+                for offer eligibility
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                How can I avail this offer?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                Just go through the normal purchase process and checkout with
+                the eligible products. On the payment page, please select your
+                saved HSBC Bank Card to pay.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                What is the minimum transaction size for the offer?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                As long as Rs. 1,000 is spent on the card for purchase of
+                eligible products, you will be eligible for the offer.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                What is the maximum discount that I can avail?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                The maximum discount possible per HSBC Cashback Credit Card
+                across Amazon.in Site and App during the offer period is
+                Rs.250/card/month.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                Is discount applicable on debit and credit cards?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                Discount is available only on HSBC Cashback Credit Card.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                {" "}
+                Can I avail discount on EMI?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                Yes, the discount is applicable on HSBC Cashback Credit Card.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                I did not receive the discount. Why?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                Please make sure you are using an eligible card, and have
+                eligible products worth Rs. 1,000 or more in your cart.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                {" "}
+                What if I cancel my order?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                The Offer is applicable for a successful purchase. If Instant
+                Discount is availed on any purchase, and it is subsequently
+                cancelled, the refund amount of such purchases will be posted
+                adjusting the instant discount amount
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsInnerHeading}>
+                {" "}
+                My payment failed while placing the order, will I be eligible
+                for the offer?
+              </Typography>
+              <Typography className={classes.termsBody}>
+                If your payment failed while placing the order, Amazon.in gives
+                you an option to revise your payment. If you revise your payment
+                successfully within the offer duration, you will be eligible for
+                the offer. For more information on revise payment,
+              </Typography>
+            </li>
+          </ol>
+          <center>
+            <u>
+              <Typography className={classes.termsInnerHeading}>
+                Schedule 1
+              </Typography>
+            </u>
+            <Typography className={classes.termsInnerHeading}>
+              Offer Terms and Conditions
+            </Typography>
+          </center>
+
+          <ol className={classes.ol}>
+            <li>
+              <Typography className={classes.termsBody}>
+                This offer ("Offer") is provided by The Hongkong and Shanghai
+                Banking Corporation Limited, India ("Bank") and is made
+                available on the website amazon.in or the mobile site or mobile
+                application thereof (collectively, "Amazon.in") by Amazon Pay
+                (India) Private Limited ("Amazon").
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                These Offer terms and conditions ("Offer Terms") are in addition
+                to the Amazon.in Conditions of Use & Sale and Privacy Notice to
+                which you agree to by using Amazon.in and Terms & Conditions of
+                HSBC Cashback Credit Cards. In the event of any conflict between
+                the Conditions of Use & Sale and these Offer Terms, these Offer
+                Terms will prevail, only for the purposes of this Offer.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                All residents of India holding HSBC Cashback Credit Card issued
+                by the Bank (each a "Card") are eligible to avail the Offer
+                (each a "Cardholder").
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                The Offer is valid from July 01, 2022 to March 31, 2023 i.e.
+                Always on (collectively "Offer Period"), unless revoked or
+                extended by Amazon (in its sole discretion), without any prior
+                notice and without any liability.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                Under this Offer, any Cardholder who, during the Offer Period,
+                purchases any product(s) (each a “Product”, and collectively
+                “Products”) on Amazon.in (https://www.amazon.in) and makes
+                payment using a Card shall be entitled to receive an instant
+                discount of 5% provided that such transaction is equivalent to
+                or exceeds INR 1,000 on a per transaction basis. Cardholders
+                need to check the offer eligibility on the Product Page.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                The maximum discount provided under this Offer will not exceed
+                INR 250 per Card per Month.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                The Offer is NOT applicable on payment made by customers using
+                the 'Card on Delivery' payment option.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                The purchase of Product by Cardholders on equated monthly
+                instalments (EMI) will also eligible for this Offer.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                In case there are multiple items in a purchase order, the
+                item-wise savings/discount may vary. However, the overall
+                savings/discount on the purchase order will be equivalent to
+                maximum savings / discount the Cardholder is eligible for under
+                this Offer.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                This Offer will not be applicable if the Cardholder or the
+                seller or Amazon cancel the order and/or the Cardholder returns
+                the Product and, in such a case, participation in the Offer will
+                be deemed withdrawn. In such a scenario, only the net amount
+                paid by the Cardholder will be refunded. In other words, the
+                instant discount will not be refunded.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                Amazon and/or the Bank reserve the right to disqualify the
+                Cardholder from the benefits of the Offer if any fraudulent
+                activity is identified as being carried out for the purpose of
+                availing the benefits under the said Offer or otherwise by use
+                of the Card.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                Amazon and/ or the Bank reserve the right, at any time, without
+                prior notice and without assigning any reason whatsoever, to
+                add/alter/modify/change or vary any or all of these Offer Terms
+                or to replace, wholly or in part, this Offer by another offer,
+                whether similar to this Offer or not, or to extend or withdraw
+                it altogether.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                Delinquent and over-limit Bank's credit card members will not
+                qualify for this Offer.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                Cardholders are not bound in any way to participate in this
+                Offer. Any participation is voluntary and the Offer is being
+                made purely on a best effort basis.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                Nothing herein amounts to a commitment by the Bank or Amazon to
+                conduct further, similar or other offers.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                The above Offer is by way of a special offer and nothing
+                contained herein will prejudice or affect the terms and
+                conditions of the Card member agreement. The terms of the above
+                schemes will be in addition to and not in derogation of the
+                terms contained in the Card member agreement.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                This Offer is not valid on corporate or commercial Cards.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                This Offer is not available on: (i) purchase of products other
+                than the Product(s), or (ii) purchase of Product using a card
+                other than the Card(s).
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                By participating in this Offer, every Cardholder expressly
+                agrees that Bank and Amazon will not be liable or responsible
+                for any loss or damage whatsoever that a Cardholder may suffer,
+                directly or indirectly, in connection with the Offer including
+                but not limited to that associated with his/ her use or delivery
+                or misuse of the Product(s). Bank shall not be liable for
+                delivery, service, suitability, availability or quality of the
+                products offered under this offer.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                These Offer Terms are governed by the laws of India and the
+                courts at New Delhi will have exclusive jurisdiction over any
+                matters/ disputes arising out of or in relation to these Offer
+                Terms.
+              </Typography>
+            </li>
+            <li>
+              <Typography className={classes.termsBody}>
+                Any person availing this Offer will be deemed to have accepted
+                these Offer Terms.
+              </Typography>
+            </li>
+            <li>
+              <div>
+                <Typography className={classes.termsBody}>
+                  Notwithstanding anything contained in these Offer Terms, this
+                  Offer is not applicable on the purchase of the following
+                  products:
+                </Typography>
+                <ol>
+                  <li className={classes.termsBody}>
+                    Gift Card(s) (Amazon branded and Non Amazon branded)
+                  </li>
+                  <li className={classes.termsBody}>Infant Nutrition</li>
+                  <li className={classes.termsBody}>
+                    Prepaid phone recharges, DTH recharges
+                  </li>
+                  <li className={classes.termsBody}>
+                    Kindle e-books and Kindle Unlimited Subscription Program
+                  </li>
+                  <li className={classes.termsBody}>Amazon Pay balance</li>
+                  <li className={classes.termsBody}>
+                    Select Smart/Mobile phones (see product page for offer
+                    eligibility)
+                  </li>
+                  <li className={classes.termsBody}>Gold and Silver coins.</li>
+                </ol>
+              </div>
+            </li>
+          </ol>
+          <br />
+          <br />
+          <Divider className={classes.divider} />
+          <Typography className={classes.availOffer}>
+            How to avail offer
+          </Typography>
+          <ul className={classes.ulTerms}>
+            <li className={classes.offerDesc}>
+              Select eligible card at the time of checkout
+            </li>
+            <li className={classes.offerDesc}>
+              No promo code required to avail the offer
+            </li>
+          </ul>
+        </div>
       )}
-      {backShow && offer2 && <div className={classes.body}>Offer2</div>}
+      {backShow && offer2 && (
+        <div className={classes.body}>
+          <Typography className={classes.headerOffer}>Offer 2</Typography>
+          <Typography className={classes.descOffer}>
+            10% Instant Discount up to INR 500 on Bank of Baroda Credit Card
+            Transactions. Minimum purchase value INR 2000
+          </Typography>
+          <Typography className={classes.promotionTermsOffer}>
+            Promotion Terms
+          </Typography>
+          <center>
+            <Typography className={classes.termsInnerHeading}>
+              Frequently Asked Questions (FAQs)
+            </Typography>
+          </center>
+          <Typography className={classes.offerDesc}>
+            <b>Offer period –</b> {getDate(0)} 00:00 HRS to {getDate(3)}{" "}
+            23:59HRS
+          </Typography>
+          <Divider className={classes.divider} />
+          <Typography className={classes.availOffer}>
+            How to avail offer
+          </Typography>
+          <ul className={classes.ulTerms}>
+            <li className={classes.offerDesc}>
+              Select eligible card at the time of checkout
+            </li>
+            <li className={classes.offerDesc}>
+              No promo code required to avail the offer
+            </li>
+          </ul>
+        </div>
+      )}
       {!backShow && (
         <div className={classes.body}>
           <Typography className={classes.offerTitle}>Offer 1</Typography>

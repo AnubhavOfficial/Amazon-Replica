@@ -1,5 +1,5 @@
 import { Card, makeStyles, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Button } from "@material-ui/core";
 const useStyles = makeStyles({
@@ -22,11 +22,14 @@ const useStyles = makeStyles({
     overflow: "hidden",
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
+    marginTop: "0.5rem",
   },
   image: {
-    height: "70%",
+    height: "75%",
     width: "80%",
     marginTop: "0.5rem",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 100%",
   },
   footer: {
     display: "flex",
@@ -54,6 +57,23 @@ const useStyles = makeStyles({
     color: "#007185",
     fontSize: "1rem",
   },
+  hoverText: {
+    position: "relative",
+    top: "85%",
+    // left: "0",
+    border: "1px solid grey",
+    background: "#F7FAFA",
+    width: "100%",
+    height: "2rem",
+    borderRadius: "0.5rem",
+    boxShadow: "0.5px 0.5px 2px 0px grey",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "&:hover": {
+      background: "#dcf4f7",
+    },
+  },
 });
 const rupeeCalculate = (val) => {
   const dec = Math.ceil(val);
@@ -61,9 +81,31 @@ const rupeeCalculate = (val) => {
 };
 const ProductCard = ({ item }) => {
   const classes = useStyles();
+  const [hover, setHover] = useState(false);
+  const onHover = () => {
+    setHover(true);
+  };
+
+  const onLeave = () => {
+    setHover(false);
+  };
   return (
-    <Card className={classes.main}>
-      <img src={item.image} alt="" className={classes.image} />
+    <Card
+      className={classes.main}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    >
+      <div
+        className={classes.image}
+        style={{ backgroundImage: `url(${item.image})` }}
+      >
+        {hover && (
+          <div className={classes.hoverText}>
+            {" "}
+            <Typography>Quick Look</Typography>
+          </div>
+        )}
+      </div>
       <Typography className={classes.title}>{item.title}</Typography>
       <div className={classes.footer}>
         <Typography> ₹ {rupeeCalculate(item.price * 79.67)}</Typography>
@@ -73,21 +115,13 @@ const ProductCard = ({ item }) => {
             starRatedColor="#FFA41C"
             numberOfStars={5}
             name="rating"
-            starDimension="20px"
-            starSpacing="3px"
+            starDimension="1.2rem"
+            starSpacing="0.15rem"
           />
           <Typography className={classes.count}>{item.rating.count}</Typography>
         </span>
       </div>
-      <Button
-        className={classes.addToCart}
-        onClick={(e) => {
-          alert("clicked");
-          e.preventDefault();
-        }}
-      >
-        Add to Cart
-      </Button>
+      {/* <Button className={classes.addToCart}>Add to Cart</Button> */}
     </Card>
   );
 };

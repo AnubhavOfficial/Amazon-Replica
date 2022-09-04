@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Button, makeStyles, Typography } from "@material-ui/core";
-// import { FaHandHoldingUsd } from "react-icons/fa";
-// import { BsBoxSeam } from "react-icons/bs";
+import { makeStyles, Typography } from "@material-ui/core";
 import { BsShieldCheck } from "react-icons/bs";
 import { TbTruckDelivery } from "react-icons/tb";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { SiDropbox } from "react-icons/si";
-import { ArrowContainer, Popover } from "react-tiny-popover";
+import { Popover } from "react-tiny-popover";
+import { MdDangerous } from "react-icons/md";
+import { BsCamera } from "react-icons/bs";
 
 const useStyles = makeStyles({
   main: {
@@ -37,11 +37,11 @@ const useStyles = makeStyles({
   },
   popover: {
     padding: "1rem",
-    background: "#e6e3e3",
+    background: "white",
     width: "35vw",
     borderRadius: "0.5rem",
-    // border: "1px solid grey",
-    // boxShadow: "2px 2px  5px 1px grey",
+    border: "1px solid grey",
+    boxShadow: "0.5px 0.5px 5px 0px grey",
   },
   heading: {
     fontSize: "0.95rem",
@@ -49,11 +49,6 @@ const useStyles = makeStyles({
   },
   description: {
     fontSize: "0.9rem",
-    // marginTop: "1rem",
-  },
-  arrow: {
-    // border: "1px solid red",
-    // boxShadow: "2px 2px  5px 1px grey",
   },
   close: {
     color: "black",
@@ -69,62 +64,68 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     alignItems: "start",
   },
+  returnDiv: {
+    display: "flex",
+    marginTop: "1rem",
+    justifyContent: "space-between",
+    alignItems: "start",
+    // flexDirection: "column",
+  },
+  returnIcons: {
+    fontSize: "3.5rem",
+    color: "#414042",
+  },
+  returnIconDiv: {
+    marginRight: "1rem",
+    padding: "1.5rem 1.2rem",
+    background: "#F1F2F2",
+  },
 });
 
 function ProductDeliveryOptions() {
   const classes = useStyles();
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isCODPopoverOpen, setIsCODPopoverOpen] = useState(false);
+  const [isReturnablePopoverOpen, setIsReturnablePopoverOpen] = useState(false);
+  const [isDeliveredPopoverOpen, setIsDeliveredPopoverOpen] = useState(false);
+  const [isWarrantyPopoverOpen, setIsWarrantyPopoverOpen] = useState(false);
   const detailsModal = (value) => {
     console.log(value);
   };
   return (
     <div className={classes.main}>
       <Popover
-        isOpen={isPopoverOpen}
-        positions={["bottom"]} // if you'd like, you can limit the positions
-        padding={15} // adjust padding here!
-        reposition={false} // prevents automatic readjustment of content position that keeps your popover content within its parent's bounds
-        onClickOutside={() => setIsPopoverOpen(false)} // handle click events outside of the popover/target here!
-        content={(
-          { position, childRect, popoverRect } // you can also provide a render function that injects some useful stuff!
-        ) => (
-          <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
-            position={position}
-            childRect={childRect}
-            popoverRect={popoverRect}
-            arrowColor={"#e6e3e3"}
-            arrowSize={10}
-            arrowStyle={{ opacity: 1 }}
-            // className={classes.popover}
-            arrowClassName={classes.arrow}
-          >
-            <div className={classes.popover}>
-              <div className={classes.popoverHeader}>
-                <Typography className={classes.heading}>
-                  What is Cash on Delivery (Cash/Card)?
-                </Typography>
-                <Typography
-                  className={classes.close}
-                  onClick={() => {
-                    setIsPopoverOpen(false);
-                  }}
-                >
-                  &#10006;
-                </Typography>
-              </div>
-              <Typography className={classes.description}>
-                Cash on Delivery (COD) payment includes both cash as well as
-                Debit card/Credit card/Net banking payments at your doorstep.
+        isOpen={isCODPopoverOpen}
+        positions={["bottom", "top"]}
+        padding={15}
+        reposition={true}
+        onClickOutside={() => setIsCODPopoverOpen(false)}
+        content={() => (
+          <div className={classes.popover}>
+            <div className={classes.popoverHeader}>
+              <Typography className={classes.heading}>
+                What is Cash on Delivery (Cash/Card)?
+              </Typography>
+              <Typography
+                className={classes.close}
+                onClick={() => {
+                  setIsCODPopoverOpen(false);
+                }}
+              >
+                &#10006;
               </Typography>
             </div>
-          </ArrowContainer>
+            <Typography className={classes.description}>
+              Cash on Delivery (COD) payment includes both cash as well as Debit
+              card/Credit card/Net banking payments at your doorstep.
+            </Typography>
+          </div>
         )}
       >
         <div
           className={classes.iconDiv}
           onClick={() => {
             detailsModal("cashOnDelivery");
-            setIsPopoverOpen(!isPopoverOpen);
+            setIsCODPopoverOpen(!isCODPopoverOpen);
           }}
         >
           <GiTakeMyMoney className={classes.icon} />
@@ -132,24 +133,143 @@ function ProductDeliveryOptions() {
         </div>
       </Popover>
 
-      <div
-        className={classes.iconDiv}
-        onClick={() => detailsModal("notReturnable")}
+      <Popover
+        isOpen={isReturnablePopoverOpen}
+        positions={["bottom", "top"]}
+        padding={15}
+        reposition={true}
+        onClickOutside={() => setIsReturnablePopoverOpen(false)}
+        content={() => (
+          <div className={classes.popover}>
+            <div className={classes.popoverHeader}>
+              <Typography className={classes.heading}>
+                Not Returnable
+              </Typography>
+              <Typography
+                className={classes.close}
+                onClick={() => {
+                  setIsReturnablePopoverOpen(false);
+                }}
+              >
+                &#10006;
+              </Typography>
+            </div>
+            <div>
+              <Typography className={classes.description}>
+                This item is non-returnable due to the nature of the product.
+              </Typography>
+              <div className={classes.returnDiv}>
+                <div className={classes.returnIconDiv}>
+                  <MdDangerous className={classes.returnIcons} />
+                </div>
+                <Typography className={classes.description}>
+                  For damaged, defective, wrong or expired item you can request
+                  for a refund or replacement within 5 days of delivery.
+                </Typography>
+              </div>
+              <div className={classes.returnDiv}>
+                <div className={classes.returnIconDiv}>
+                  <BsCamera className={classes.returnIcons} />
+                </div>
+                <Typography className={classes.description}>
+                  You will need to share the images of the item and its defects
+                  through Your Orders for a refund or replacement.
+                </Typography>
+              </div>
+            </div>
+          </div>
+        )}
       >
-        <SiDropbox className={classes.icon} />
-        <Typography className={classes.text}>Not Returnable</Typography>
-      </div>
-      <div
-        className={classes.iconDiv}
-        onClick={() => detailsModal("amazonDelivered")}
+        <div
+          className={classes.iconDiv}
+          onClick={() => {
+            detailsModal("notReturnable");
+            setIsReturnablePopoverOpen(!isReturnablePopoverOpen);
+          }}
+        >
+          <SiDropbox className={classes.icon} />
+          <Typography className={classes.text}>Not Returnable</Typography>
+        </div>
+      </Popover>
+
+      <Popover
+        isOpen={isDeliveredPopoverOpen}
+        positions={["bottom", "top"]}
+        padding={15}
+        reposition={true}
+        onClickOutside={() => setIsDeliveredPopoverOpen(false)}
+        content={() => (
+          <div className={classes.popover}>
+            <div className={classes.popoverHeader}>
+              <Typography className={classes.heading}>
+                Amazon Delivered
+              </Typography>
+              <Typography
+                className={classes.close}
+                onClick={() => {
+                  setIsDeliveredPopoverOpen(false);
+                }}
+              >
+                &#10006;
+              </Typography>
+            </div>
+            <Typography className={classes.description}>
+              Amazon directly manages delivery for this product. Order delivery
+              tracking to your doorstep is available.
+            </Typography>
+          </div>
+        )}
       >
-        <TbTruckDelivery className={classes.icon} />
-        <Typography className={classes.text}>Amazon Delivered</Typography>
-      </div>
-      <div className={classes.iconDiv} onClick={() => detailsModal("warrenty")}>
-        <BsShieldCheck className={classes.icon} />
-        <Typography className={classes.text}>1 Year Warranty</Typography>
-      </div>
+        <div
+          className={classes.iconDiv}
+          onClick={() => {
+            detailsModal("amazonDelivered");
+            setIsDeliveredPopoverOpen(!isDeliveredPopoverOpen);
+          }}
+        >
+          <TbTruckDelivery className={classes.icon} />
+          <Typography className={classes.text}>Amazon Delivered</Typography>
+        </div>
+      </Popover>
+
+      <Popover
+        isOpen={isWarrantyPopoverOpen}
+        positions={["bottom", "top"]}
+        padding={15}
+        reposition={true}
+        onClickOutside={() => setIsWarrantyPopoverOpen(false)}
+        content={() => (
+          <div className={classes.popover}>
+            <div className={classes.popoverHeader}>
+              <Typography className={classes.heading}>
+                1 Year Warranty
+              </Typography>
+              <Typography
+                className={classes.close}
+                onClick={() => {
+                  setIsWarrantyPopoverOpen(false);
+                }}
+              >
+                &#10006;
+              </Typography>
+            </div>
+            <Typography className={classes.description}>
+              1 year on product
+            </Typography>
+          </div>
+        )}
+      >
+        <div
+          className={classes.iconDiv}
+          onClick={() => {
+            detailsModal("warrenty");
+            setIsWarrantyPopoverOpen(!isWarrantyPopoverOpen);
+          }}
+        >
+          <BsShieldCheck className={classes.icon} />
+          <Typography className={classes.text}>1 Year Warranty</Typography>
+        </div>
+      </Popover>
     </div>
   );
 }

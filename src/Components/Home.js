@@ -26,6 +26,7 @@ const useStyles = makeStyles({
   main: {
     marginTop: "2.8rem",
     backgroundImage: "linear-gradient(180deg ,#0E032E 50%, #ffffff)",
+    paddingBottom: "2rem",
   },
 });
 function Home() {
@@ -46,7 +47,7 @@ function Home() {
       <Grid container className={classes.grid}>
         {Object.keys(data).map((i) => {
           return (
-            <Grid item xs={12} sm={12} md={4} lg={3} xl={3} key={i}>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={i}>
               <Link to={`/products/${data[i].id}`} className={classes.gridItem}>
                 <ProductCard item={data[i]} />
               </Link>

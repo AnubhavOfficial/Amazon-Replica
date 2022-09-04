@@ -7,15 +7,22 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { Search } from "@material-ui/icons";
 import ReactCountryFlag from "react-country-flag";
 import { AiOutlineCaretDown } from "react-icons/ai";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 
 const useStyles = makeStyles({
   appbar: {
     background: "#131921",
+    // height: "3rem",
+  },
+  toolbar: {
+    margin: 0,
+    paddingLeft: "1rem",
   },
   logo: {
     width: "6.7rem",
     height: "1.9rem",
     marginTop: "0.2rem",
+    // marginLeft: "0.5rem",
   },
   location: {
     display: "flex",
@@ -46,7 +53,7 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   searchbar: {
-    width: "50vw",
+    width: "49vw",
     marginLeft: "1rem",
     height: "2.5rem",
     borderRadius: "0.3rem",
@@ -77,7 +84,7 @@ const useStyles = makeStyles({
     height: "2rem",
   },
   headerButton: {
-    margin: "0.2rem 0 0 0.75rem",
+    margin: "0.2rem 0.4rem 0 0.75rem",
     padding: "0.5rem 0.25rem",
     "&:hover": {
       outline: "1px solid",
@@ -93,12 +100,48 @@ const useStyles = makeStyles({
     fontSize: "0.7rem",
     marginLeft: "0.3rem",
   },
+  cart: {
+    fontSize: "0.9rem",
+    textDecoration: "none",
+    color: "white",
+    marginLeft: "0.8rem",
+    display: "flex",
+    alignItems: "end",
+  },
+  header_cart: {
+    display: "flex",
+    textAlign: "end",
+    justifyContent: "end",
+    position: "relative",
+    marginRight: "0.3rem",
+  },
+  cartItems: {
+    position: "absolute",
+    width: "1rem",
+    height: "1rem",
+    top: "-1.2rem",
+    borderRadius: "50%",
+    background: "red",
+    color: "#fff",
+    boxSizing: "border-box",
+    fontSize: "0.7rem",
+    display: "flex",
+    justifyContent: "center",
+    // alignItems: "center",
+    // textAlign: "center",
+  },
+  cartIcon: {
+    fontSize: "1.9rem",
+    // height: "2rem",
+    // width: "2rem",
+  },
 });
 
 function NavBar() {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [signedIn, setSignedIn] = useState(false);
+  // const [count, setCount] = useState(0);
 
   const onSignIn = () => {
     if (signedIn) {
@@ -109,10 +152,13 @@ function NavBar() {
       setName("Anubhav");
     }
   };
+  // const AddToCart = () => {
+  //   setCount(count + 1);
+  // };
   return (
     <div>
       <AppBar className={classes.appbar}>
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <Link to="/">
             <img className={classes.logo} src={amazonLogo} alt="" />
           </Link>
@@ -155,10 +201,11 @@ function NavBar() {
             <Typography className={classes.text}>Returns</Typography>
             <Typography className={classes.text2}>& Orders</Typography>
           </div>
-          <Link
-            to="/Cart"
-            style={{ fontSize: "1.3rem", color: "white", marginLeft: "2rem" }}
-          >
+          <Link to="/Cart" className={classes.cart}>
+            <div className={classes.header_cart}>
+              <ShoppingCartOutlinedIcon className={classes.cartIcon} />
+              <p className={classes.cartItems}>2</p>
+            </div>
             Cart
           </Link>
         </Toolbar>
