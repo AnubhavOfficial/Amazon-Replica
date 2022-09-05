@@ -123,6 +123,9 @@ const useStyles = makeStyles({
       transform: "scale(1.05)",
     },
   },
+  linkStyle: {
+    textDecoration: "none",
+  },
 });
 const ProductDescription = () => {
   const { id } = useParams();
@@ -231,7 +234,7 @@ const ProductDescription = () => {
               <div className={classes.priceDiv}>
                 <Typography className={classes.price}>
                   <BiRupee className={classes.rupee} />
-                  {rupeeCalculate(product.price * 79.67)}
+                  {rupeeCalculate(product.price * 79.67).toLocaleString()}
                 </Typography>
                 <Typography className={classes.taxes}>
                   Inclusive of all taxes
@@ -263,9 +266,11 @@ const ProductDescription = () => {
                 })}
               </div>
               <Divider className={classes.divider} />
-              <Button className={classes.addToCart} onClick={addToCart}>
-                Add to Cart
-              </Button>
+              <Link to="AddedToCart" className={classes.linkStyle}>
+                <Button className={classes.addToCart} onClick={addToCart}>
+                  Add to Cart
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

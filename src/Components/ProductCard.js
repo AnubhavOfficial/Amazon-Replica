@@ -105,7 +105,10 @@ const ProductCard = ({ item }) => {
       </div>
       <Typography className={classes.title}>{item.title}</Typography>
       <div className={classes.footer}>
-        <Typography> ₹ {rupeeCalculate(item.price * 79.67)}</Typography>
+        <Typography>
+          {" "}
+          ₹ {rupeeCalculate(item.price * 79.67).toLocaleString()}
+        </Typography>
         <span title={item.rating.rate + " out of 5"} className={classes.rating}>
           <StarRatings
             rating={item.rating.rate}

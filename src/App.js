@@ -8,8 +8,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import setProductsAction from "./Actions/SetProductsAction";
 import SetCartFromLocalStorageAction from "./Actions/SetCartFromLocalStorageAction";
+import AddedToCart from "./Components/AddedToCart";
 
-const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
+const cartFromLocalStorage = JSON.parse(
+  localStorage.getItem("cart") || '{"items":[],"count":0}'
+);
 function App() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -35,6 +38,7 @@ function App() {
           <Route path="/products" exact element={<Home />} />
           <Route path="/products/:id" element={<ProductDescription />} />
           <Route path="/Cart" element={<Cart />} />
+          <Route path="/products/:id/AddedToCart" element={<AddedToCart />} />
         </Routes>
       </Router>
     </div>
