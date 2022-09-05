@@ -15,6 +15,9 @@ import { TbDiscount2 } from "react-icons/tb";
 import { BiRupee } from "react-icons/bi";
 import Offers from "./Offers";
 import { BiChevronLeft } from "react-icons/bi";
+import AddNewProductToCartAction from "../Actions/AddNewProductToCartAction";
+import AddExistingProductToCartAction from "../Actions/AddExistingProductToCartAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   main: {
@@ -123,19 +126,11 @@ const useStyles = makeStyles({
 });
 const ProductDescription = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({});
+  const product = useSelector((state) => state.products[id - 1]);
   const [addBanner, setAddBanner] = useState(AddBanner4);
-  const [description, setDescription] = useState([]);
   const [num, setNum] = useState(0);
-  useEffect(() => {
-    const apiCall = async () => {
-      const response = await axios("https://fakestoreapi.com/products");
-      setProduct(response.data[id - 1]);
-      descriptionArray(response.data[id - 1].description);
-    };
-
-    apiCall();
-  }, [id]);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -149,11 +144,17 @@ const ProductDescription = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, [num]);
+  useEffect(() => {
+    const scrollTop = () => {
+      window.scrollTo(0, 0);
+    };
+    scrollTop();
+  }, []);
 
   const classes = useStyles();
   const descriptionArray = (para) => {
     var arr = para.split(".");
-    setDescription(arr);
+    return arr;
   };
   const capitalize = (word) => {
     var newWord = word.charAt(0).toUpperCase() + word.substring(1, word.length);
@@ -163,91 +164,113 @@ const ProductDescription = () => {
     const dec = Math.ceil(val);
     return dec;
   };
-  return (
-    <div className={classes.main}>
-      <a href="https://www.primevideo.com/" target="blank">
-        <div
-          className={classes.addBanner}
-          style={{ backgroundImage: `url(${addBanner})` }}
-        ></div>
-      </a>
-      <Link to="/" className={classes.link}>
-        <Button className={classes.backBtn}>
-          <BiChevronLeft /> <Typography>Back to products</Typography>
-        </Button>
-      </Link>
-      <div className={classes.productInfo}>
-        <img
-          src={product.image}
-          alt={product.title}
-          className={classes.image}
-        />
-        <div>
-          <Typography className={classes.title}>{product.title}</Typography>
+  const addToCart = () => {
+    let unique = true;
+    for (let i = 0; i < cartItems.length; i++) {
+      if (cartItems[i].id === product.id) {
+        unique = false;
+        break;
+      }
+    }
+    unique
+      ? dispatch(AddNewProductToCartAction(product, 1))
+      : dispatch(AddExistingProductToCartAction(product.id));
+  };
 
-          <div className={classes.rateCategory}>
-            {product.rating && (
-              <span
-                title={product.rating.rate + " out of 5"}
-                className={classes.rating}
-              >
-                <StarRatings
-                  rating={product.rating.rate}
-                  starRatedColor="#FFA41C"
-                  numberOfStars={5}
-                  name="rating"
-                  starDimension="1.2rem"
-                  starSpacing="0.15rem"
-                />
-                <Typography className={classes.count}>
-                  {product.rating.count}
+  return (
+    <>
+      {product && (
+        <div className={classes.main}>
+          <a href="https://www.primevideo.com/" target="blank">
+            <div
+              className={classes.addBanner}
+              style={{ backgroundImage: `url(${addBanner})` }}
+            ></div>
+          </a>
+          <Link to="/" className={classes.link}>
+            <Button className={classes.backBtn}>
+              <BiChevronLeft /> <Typography>Back to products</Typography>
+            </Button>
+          </Link>
+          <div className={classes.productInfo}>
+            <img
+              src={product.image}
+              alt={product.title}
+              className={classes.image}
+            />
+
+            <div>
+              <Typography className={classes.title}>{product.title}</Typography>
+
+              <div className={classes.rateCategory}>
+                {product.rating && (
+                  <span
+                    title={product.rating.rate + " out of 5"}
+                    className={classes.rating}
+                  >
+                    <StarRatings
+                      rating={product.rating.rate}
+                      starRatedColor="#FFA41C"
+                      numberOfStars={5}
+                      name="rating"
+                      starDimension="1.2rem"
+                      starSpacing="0.15rem"
+                    />
+                    <Typography className={classes.count}>
+                      {product.rating.count}
+                    </Typography>
+                  </span>
+                )}
+                {product.category && (
+                  <Typography className={classes.category}>
+                    {capitalize(product.category)}
+                  </Typography>
+                )}
+              </div>
+              <Divider className={classes.divider} />
+              <div className={classes.priceDiv}>
+                <Typography className={classes.price}>
+                  <BiRupee className={classes.rupee} />
+                  {rupeeCalculate(product.price * 79.67)}
                 </Typography>
-              </span>
-            )}
-            {product.category && (
-              <Typography className={classes.category}>
-                {capitalize(product.category)}
-              </Typography>
-            )}
+                <Typography className={classes.taxes}>
+                  Inclusive of all taxes
+                </Typography>
+              </div>
+              <Divider className={classes.divider} />
+              <div className={classes.offersDiv}>
+                <Typography className={classes.offerTitle}>
+                  <TbDiscount2 className={classes.offerIcon} /> Offers
+                </Typography>
+                <Offers />
+              </div>
+              <Divider className={classes.divider} />
+              <ProductDeliveryOptions />
+              <Divider className={classes.divider} />
+              <div className={classes.descriptionDiv}>
+                <Typography className={classes.description}>
+                  About this item
+                </Typography>
+                {descriptionArray(product.description).map((items, i) => {
+                  items =
+                    items.charAt(0).toUpperCase() +
+                    items.substring(1, items.length);
+                  return (
+                    items.length > 2 && (
+                      <Typography key={i}>• {items}</Typography>
+                    )
+                  );
+                })}
+              </div>
+              <Divider className={classes.divider} />
+              <Button className={classes.addToCart} onClick={addToCart}>
+                Add to Cart
+              </Button>
+            </div>
           </div>
-          <Divider className={classes.divider} />
-          <div className={classes.priceDiv}>
-            <Typography className={classes.price}>
-              <BiRupee className={classes.rupee} />
-              {rupeeCalculate(product.price * 79.67)}
-            </Typography>
-            <Typography className={classes.taxes}>
-              Inclusive of all taxes
-            </Typography>
-          </div>
-          <Divider className={classes.divider} />
-          <div className={classes.offersDiv}>
-            <Typography className={classes.offerTitle}>
-              <TbDiscount2 className={classes.offerIcon} /> Offers
-            </Typography>
-            <Offers />
-          </div>
-          <Divider className={classes.divider} />
-          <ProductDeliveryOptions />
-          <Divider className={classes.divider} />
-          <div className={classes.descriptionDiv}>
-            <Typography className={classes.description}>
-              About this item
-            </Typography>
-            {description.map((items, i) => {
-              items =
-                items.charAt(0).toUpperCase() +
-                items.substring(1, items.length);
-              return (
-                items.length > 2 && <Typography key={i}>• {items}</Typography>
-              );
-            })}
-          </div>
-          <Divider className={classes.divider} />
-          <Button className={classes.addToCart}>Add to Cart</Button>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

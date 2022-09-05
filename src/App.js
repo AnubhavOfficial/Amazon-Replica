@@ -3,7 +3,29 @@ import Cart from "./Components/Cart";
 import Home from "./Components/Home";
 import NavBar from "./Components/NavBar";
 import ProductDescription from "./Components/ProductDescription";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import setProductsAction from "./Actions/SetProductsAction";
+import SetCartFromLocalStorageAction from "./Actions/SetCartFromLocalStorageAction";
+
+const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
 function App() {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  useEffect(() => {
+    const apiCall = async () => {
+      const response = await axios("https://fakestoreapi.com/products");
+      localStorage.setItem("cart", JSON.stringify(cart));
+      dispatch(setProductsAction(response.data));
+    };
+
+    apiCall();
+  }, [cart, dispatch]);
+
+  useEffect(() => {
+    dispatch(SetCartFromLocalStorageAction(cartFromLocalStorage));
+  }, [dispatch]);
   return (
     <div>
       <Router>

@@ -8,6 +8,7 @@ import { Search } from "@material-ui/icons";
 import ReactCountryFlag from "react-country-flag";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   appbar: {
@@ -135,7 +136,7 @@ function NavBar() {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [signedIn, setSignedIn] = useState(false);
-
+  const cartCount = useSelector((state) => state.cart.count);
   const onSignIn = () => {
     if (signedIn) {
       setSignedIn(false);
@@ -194,7 +195,7 @@ function NavBar() {
           <Link to="/Cart" className={classes.cart}>
             <div className={classes.header_cart}>
               <ShoppingCartOutlinedIcon className={classes.cartIcon} />
-              <p className={classes.cartItems}>2</p>
+              <p className={classes.cartItems}>{cartCount}</p>
             </div>
             Cart
           </Link>

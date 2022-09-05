@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 import { makeStyles } from "@material-ui/styles";
 import amazonBanner from "../Assets/images/amazonBanner.jpg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const useStyles = makeStyles({
   banner: {
     backgroundImage: `url(${amazonBanner})`,
@@ -26,15 +27,7 @@ const useStyles = makeStyles({
 });
 function Home() {
   const classes = useStyles();
-  const [data, setData] = useState({});
-  useEffect(() => {
-    const apiCall = async () => {
-      const response = await axios("https://fakestoreapi.com/products");
-      setData(response.data);
-    };
-
-    apiCall();
-  }, []);
+  const data = useSelector((state) => state.products);
 
   return (
     <div className={classes.main}>
