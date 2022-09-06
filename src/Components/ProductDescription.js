@@ -116,15 +116,29 @@ const useStyles = makeStyles({
     background: "#FFD814",
     height: "2rem",
     width: "8rem",
+    fontSize: "1rem",
+    textTransform: "none",
     borderRadius: "0.5rem",
-    marginTop: "3rem",
     "&:hover": {
       background: "#F7CA00",
-      transform: "scale(1.05)",
     },
   },
   linkStyle: {
     textDecoration: "none",
+  },
+  quantityDiv: {
+    marginTop: "3rem",
+    display: "flex",
+    width: "50%",
+    justifyContent: "space-between",
+    paddingBottom: "5rem",
+  },
+  select: {
+    width: "6rem",
+    marginLeft: "1rem",
+    height: "2rem",
+    outline: "none",
+    cursor: "pointer",
   },
 });
 const ProductDescription = () => {
@@ -155,6 +169,7 @@ const ProductDescription = () => {
   }, []);
 
   const classes = useStyles();
+  const [itemQuantity, setItemQuantity] = useState(1);
   const descriptionArray = (para) => {
     var arr = para.split(".");
     return arr;
@@ -175,9 +190,10 @@ const ProductDescription = () => {
         break;
       }
     }
+    console.log(itemQuantity);
     unique
-      ? dispatch(AddNewProductToCartAction(product, 1))
-      : dispatch(AddExistingProductToCartAction(product.id));
+      ? dispatch(AddNewProductToCartAction(product, itemQuantity))
+      : dispatch(AddExistingProductToCartAction(product.id, itemQuantity));
   };
 
   return (
@@ -266,11 +282,35 @@ const ProductDescription = () => {
                 })}
               </div>
               <Divider className={classes.divider} />
-              <Link to="AddedToCart" className={classes.linkStyle}>
-                <Button className={classes.addToCart} onClick={addToCart}>
-                  Add to Cart
-                </Button>
-              </Link>
+              <div className={classes.quantityDiv}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Typography>Quantity: </Typography>
+                  <select
+                    name="ItemQuantity"
+                    id="ItemQuantityId"
+                    className={classes.select}
+                    onChange={(e) => {
+                      setItemQuantity(e.target.value);
+                      console.log(e.target.value);
+                    }}
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <Link to="AddedToCart" className={classes.linkStyle}>
+                  <Button className={classes.addToCart} onClick={addToCart}>
+                    Add to Cart
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

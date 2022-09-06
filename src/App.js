@@ -2,8 +2,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Cart from "./Components/Cart";
 import Home from "./Components/Home";
 import NavBar from "./Components/NavBar";
+import Footer from "./Components/Footer";
 import ProductDescription from "./Components/ProductDescription";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import setProductsAction from "./Actions/SetProductsAction";
@@ -40,6 +41,7 @@ function App() {
           <Route path="/Cart" element={<Cart />} />
           <Route path="/products/:id/AddedToCart" element={<AddedToCart />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

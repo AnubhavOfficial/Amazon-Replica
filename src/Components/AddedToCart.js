@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import { BiChevronLeft } from "react-icons/bi";
 import { BiRupee } from "react-icons/bi";
 const useStyles = makeStyles({
   main: {
-    marginTop: "4rem",
+    marginTop: "10vh",
     paddingTop: "10vh",
     height: "70vh",
     width: "100%",
@@ -93,6 +93,9 @@ const useStyles = makeStyles({
       background: "#F7FAFA",
     },
   },
+  bottomButton: {
+    height: "20vh",
+  },
 });
 function AddedToCart() {
   const { id } = useParams();
@@ -101,18 +104,26 @@ function AddedToCart() {
   const cartItems = useSelector((state) => state.cart.items);
   const quantity = useSelector((state) => state.cart.count);
   const redirect = () => {
-    // window.history.pushState({}, null, "/");
     window.location.replace(`/`);
   };
   const cartTotal = () => {
     let total = 0;
     for (let i = 0; i < cartItems.length; i++) {
-      total = cartItems[i].price * 79.67 + total;
+      total = cartItems[i].price * 79.67 * cartItems[i].quantity + total;
     }
     return Math.ceil(total);
   };
   const goToCart = () => {
     window.location.replace(`/Cart`);
+  };
+  const calcItemQuantity = () => {
+    let itemQuantity = 0;
+    for (let i = 0; i < cartItems.length; i++) {
+      if (cartItems[i].id === product.id) {
+        itemQuantity = cartItems[i].quantity;
+      }
+    }
+    return itemQuantity;
   };
   return (
     <>
@@ -129,6 +140,7 @@ function AddedToCart() {
                   Added to Cart
                 </Typography>
                 <Typography>{product.title}</Typography>
+                <Typography>Quantity: {calcItemQuantity()}</Typography>
               </div>
             </div>
             <div className={classes.card2}>
@@ -150,7 +162,7 @@ function AddedToCart() {
               </Typography>
             </div>
           </div>
-          <div>
+          <div className={classes.bottomButton}>
             <center>
               <Button className={classes.backBtn} onClick={redirect}>
                 <BiChevronLeft />{" "}

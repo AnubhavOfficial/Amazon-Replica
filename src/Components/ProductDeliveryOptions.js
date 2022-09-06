@@ -86,9 +86,6 @@ function ProductDeliveryOptions() {
   const [isReturnablePopoverOpen, setIsReturnablePopoverOpen] = useState(false);
   const [isDeliveredPopoverOpen, setIsDeliveredPopoverOpen] = useState(false);
   const [isWarrantyPopoverOpen, setIsWarrantyPopoverOpen] = useState(false);
-  const detailsModal = (value) => {
-    console.log(value);
-  };
   return (
     <div className={classes.main}>
       <Popover
@@ -122,7 +119,6 @@ function ProductDeliveryOptions() {
         <div
           className={classes.iconDiv}
           onClick={() => {
-            detailsModal("cashOnDelivery");
             setIsCODPopoverOpen(!isCODPopoverOpen);
           }}
         >
@@ -181,7 +177,6 @@ function ProductDeliveryOptions() {
         <div
           className={classes.iconDiv}
           onClick={() => {
-            detailsModal("notReturnable");
             setIsReturnablePopoverOpen(!isReturnablePopoverOpen);
           }}
         >
@@ -221,7 +216,6 @@ function ProductDeliveryOptions() {
         <div
           className={classes.iconDiv}
           onClick={() => {
-            detailsModal("amazonDelivered");
             setIsDeliveredPopoverOpen(!isDeliveredPopoverOpen);
           }}
         >
@@ -260,7 +254,6 @@ function ProductDeliveryOptions() {
         <div
           className={classes.iconDiv}
           onClick={() => {
-            detailsModal("warrenty");
             setIsWarrantyPopoverOpen(!isWarrantyPopoverOpen);
           }}
         >

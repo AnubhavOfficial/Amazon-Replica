@@ -8,21 +8,21 @@ const CartItemsReducer = (state = initialState, action) => {
       return {
         ...state,
         items: [...state.items, newItem],
-        count: state.count + 1,
+        count: parseInt(state.count) + parseInt(action.quantity),
       };
     case "ADD_EXISTING_PRODUCT_TO_CART":
       let obj = [...state.items];
       for (let i = 0; i < obj.length; i++) {
         if (obj[i].id === action.id) {
-          obj[i].quantity = obj[i].quantity + 1;
-          console.log(obj[i].id);
+          obj[i].quantity =
+            parseInt(obj[i].quantity) + parseInt(action.quantity);
           break;
         }
       }
 
       return {
         items: obj,
-        count: state.count + 1,
+        count: parseInt(state.count) + parseInt(action.quantity),
       };
     case "SET_CART_FROM_LOCAL_STORAGE":
       return action.value;
