@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -12,7 +12,6 @@ const useStyles = makeStyles({
     height: "70vh",
     width: "100%",
     display: "flex",
-    // flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "start",
     background: "#F4F4F4",
@@ -98,6 +97,9 @@ const useStyles = makeStyles({
   },
 });
 function AddedToCart() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { id } = useParams();
   const classes = useStyles();
   const product = useSelector((state) => state.products[id - 1]);
@@ -140,7 +142,7 @@ function AddedToCart() {
                   Added to Cart
                 </Typography>
                 <Typography>{product.title}</Typography>
-                <Typography>Quantity: {calcItemQuantity()}</Typography>
+                <Typography>Total Quantity: {calcItemQuantity()}</Typography>
               </div>
             </div>
             <div className={classes.card2}>

@@ -1,6 +1,5 @@
 import { Grid } from "@material-ui/core";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProductCard from "./ProductCard";
 import { makeStyles } from "@material-ui/styles";
 import amazonBanner from "../Assets/images/amazonBanner.jpg";

@@ -27,8 +27,19 @@ const CartItemsReducer = (state = initialState, action) => {
     case "SET_CART_FROM_LOCAL_STORAGE":
       return action.value;
 
-    case "REMOVE_PRODUCT_TO_CART":
-      return action.value;
+    case "REMOVE_PRODUCT_FROM_CART":
+      let item = [...state.items];
+      let index = 0;
+      for (let i = 0; i < item.length; i++) {
+        if (item[i].id === action.id) {
+          index = i;
+        }
+      }
+      item.splice(index, 1);
+      return {
+        items: item,
+        count: parseInt(state.count) - parseInt(action.quantity),
+      };
     default:
       return state;
   }

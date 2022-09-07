@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Divider, makeStyles, Typography } from "@material-ui/core";
 import amazonLogo from "../Assets/images/amazonLogoFooter.png";
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { Popover } from "react-tiny-popover";
 import { BsGlobe } from "react-icons/bs";
@@ -119,7 +118,6 @@ const useStyles = makeStyles({
   linkText: {
     fontSize: "0.8rem",
     marginLeft: "1rem",
-    // width: "5rem",
   },
   linkTextCustom: {
     fontSize: "0.8rem",
