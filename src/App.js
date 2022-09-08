@@ -34,7 +34,6 @@ function App() {
   useEffect(() => {
     dispatch(SetCartFromLocalStorageAction(cartFromLocalStorage));
   }, [dispatch]);
-  // const showLoggedIn = useSelector((state) => state.showLogin);
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       const initialUserState = {
@@ -64,33 +63,79 @@ function App() {
         appName: "[DEFAULT]",
       };
 
-      if (authUser) {
+      if (authUser.displayName !== "") {
         dispatch(setUserAction(authUser));
       } else {
         dispatch(setUserAction(initialUserState));
       }
     });
   }, [dispatch]);
-  const loginShow = useSelector((state) => state.showLogin);
   return (
     <div>
       <Router>
-        {loginShow ? <></> : <NavBar />}
-        {/* <NavBar /> */}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/products" exact element={<Home />} />
-          <Route path="/products/:id" exact element={<ProductDescription />} />
-          <Route path="/Cart" element={<Cart />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <NavBar />
+                <Home />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/Login"
+            element={
+              <>
+                <Login />
+              </>
+            }
+          />
+          <Route
+            path="/products"
+            exact
+            element={
+              <>
+                <NavBar />
+                <Home />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/products/:id"
+            exact
+            element={
+              <>
+                <NavBar />
+                <ProductDescription />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/Cart"
+            element={
+              <>
+                <NavBar />
+                <Cart />
+                <Footer />
+              </>
+            }
+          />
           <Route
             path="/products/:id/AddedToCart"
             exact
-            element={<AddedToCart />}
+            element={
+              <>
+                <NavBar />
+                <AddedToCart />
+                <Footer />
+              </>
+            }
           />
         </Routes>
-        {loginShow ? <></> : <Footer />}
-        {/* <Footer /> */}
       </Router>
     </div>
   );

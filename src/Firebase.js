@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
+// eslint-disable-next-line no-unused-vars
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyBr0LZpuljI-_P1U6VS1z89bop2XczjfHE",
   authDomain: "replica-6d668.firebaseapp.com",

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import CartProductCard from "./CartProductCard";
 import emptyCart from "../Assets/images/emptyCart.png";
 import { Link } from "react-router-dom";
+import { FaCheckCircle } from "react-icons/fa";
 
 const useStyles = makeStyles({
   main: {
@@ -15,10 +16,14 @@ const useStyles = makeStyles({
   },
   leftDiv: {
     margin: "2rem 1rem",
-    width: "75%",
+    width: "72%",
   },
   rightDiv: {
     margin: "2rem 1rem",
+    background: "white",
+    height: "10rem",
+    padding: "2rem",
+    borderRadius: "0.2rem",
   },
   innerleftDiv: {
     padding: "1rem",
@@ -60,6 +65,45 @@ const useStyles = makeStyles({
   subTotal: {
     textAlign: "end",
     paddingRight: "1rem",
+  },
+  proceedToBuy: {
+    background: "#FFD814",
+    boxShadow: "0.5px 0.5px 2px 0.5px #F7CA00",
+    width: "18vw",
+    cursor: "pointer",
+    textAlign: "center",
+    padding: "0.2rem 0.3rem",
+    borderRadius: "0.3rem",
+    fontSize: "1rem",
+    textTransform: "none",
+    marginTop: "1rem",
+    "&:hover": {
+      background: "#F7CA00",
+    },
+  },
+  subTotalText: {
+    fontSize: "1.2rem",
+    marginTop: "1rem",
+  },
+  freeDelivery: {
+    color: "#067D62",
+    fontSize: "0.85rem",
+  },
+  checkIcon: {
+    color: "#067D62",
+    marginRight: "0.5rem",
+  },
+  checkoutText: {
+    fontSize: "0.85rem",
+    marginLeft: "1.5rem",
+  },
+  checkoutLink: {
+    textDecoration: "none",
+    color: "#007185",
+    "&:hover": {
+      color: "#D2511F",
+      textDecoration: "underline",
+    },
   },
 });
 function Cart() {
@@ -106,8 +150,9 @@ function Cart() {
               );
             })}
             <div className={classes.subTotal}>
-              <Typography>
-                Subtotal ( {cartCount} items) : {calcTotal().toLocaleString()}
+              <Typography className={classes.subTotalText}>
+                Subtotal ({cartCount} items) :{" "}
+                <b>₹ {calcTotal().toLocaleString()}</b>
               </Typography>
             </div>
           </div>
@@ -124,7 +169,29 @@ function Cart() {
         <></>
       ) : (
         <div className={classes.rightDiv}>
-          Total: {calcTotal().toLocaleString()}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <FaCheckCircle className={classes.checkIcon} />
+            <Typography className={classes.freeDelivery}>
+              Your order is eligible for FREE Delivery.
+            </Typography>
+          </div>
+          <Typography className={classes.checkoutText}>
+            Select this option at checkout.{" "}
+            <a
+              href="https://www.amazon.in/gp/help/customer/display.html?nodeId=200904360&pop-up=1"
+              target="blank"
+              className={classes.checkoutLink}
+            >
+              Details
+            </a>
+          </Typography>
+          <Typography className={classes.subTotalText}>
+            Subtotal ({cartCount} items) :{" "}
+            <b>₹ {calcTotal().toLocaleString()}</b>
+          </Typography>
+          <Typography className={classes.proceedToBuy}>
+            Proceed to Buy
+          </Typography>
         </div>
       )}
     </div>

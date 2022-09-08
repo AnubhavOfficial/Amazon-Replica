@@ -9,8 +9,13 @@ import ReactCountryFlag from "react-country-flag";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import { useDispatch, useSelector } from "react-redux";
-import ShowLoginPageAction from "./../Actions/ShowLoginPageAction";
 import setUserAction from "../Actions/setUserAction";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 
 const useStyles = makeStyles({
   appbar: {
@@ -140,7 +145,6 @@ const useStyles = makeStyles({
 
 function NavBar() {
   const classes = useStyles();
-  // const name = useSelector((state) => state.name);
   const initialUserState = {
     uid: "",
     email: "",
@@ -169,19 +173,39 @@ function NavBar() {
   };
 
   const name = useSelector((state) => state.user.displayName);
-  // const [signedIn, setSignedIn] = useState(false);
   const dispatch = useDispatch();
   const cartCount = useSelector((state) => state.cart.count);
-  const onSignIn = () => {
-    dispatch(ShowLoginPageAction(true));
-  };
-  const onSignOut = () => {
+  const onSignOut = async () => {
     dispatch(setUserAction(initialUserState));
+    setTimeout(() => {
+      setOpen(true);
+    }, 300);
+  };
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
   };
   return (
     <div>
       <AppBar className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
+          <Dialog
+            open={open}
+            keepMounted
+            onClose={handleClose}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle>Success</DialogTitle>
+            <DialogContent>
+              <Typography style={{ whiteSpace: "pre-line" }}>
+                You have been Logged out successfully!
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Okay</Button>
+            </DialogActions>
+          </Dialog>
           <Link to="/">
             <img className={classes.logo} src={amazonLogo} alt="" />
           </Link>
@@ -219,7 +243,7 @@ function NavBar() {
             </div>
           ) : (
             <Link to="/Login" className={classes.linkBtn}>
-              <div className={classes.headerButton} onClick={onSignIn}>
+              <div className={classes.headerButton}>
                 <Typography className={classes.text}>Hello Guest</Typography>
                 <Typography className={classes.text2}>Sign in</Typography>
               </div>

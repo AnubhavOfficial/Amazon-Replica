@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import amazonLogo from "../Assets/images/amazonLogoBlack.png";
+import { sendEmailVerification } from "firebase/auth";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ShowLoginPageAction from "./../Actions/ShowLoginPageAction";
 import { auth } from "../Firebase";
-// import authw from "../firebase"
+import setUserAction from "../Actions/setUserAction";
 
 const useStyles = makeStyles({
   main: {
@@ -152,25 +150,26 @@ function Login() {
     if (form.checkValidity()) {
       auth
         .signInWithEmailAndPassword(email, pass)
-        .then((auth) => {
-          dispatch(ShowLoginPageAction());
+        .then(() => {
+          var user = auth.currentUser;
+          dispatch(setUserAction(user));
           navigate(-1);
         })
         .catch((e) => {
           console.log(e);
           var index = e.message.search("password");
           index === -1
-            ? setError(e.message + "\n\n Create a new Account for this email")
+            ? setError(e.message + "\n\n Create a new account for this email")
             : setError(
                 e.message +
-                  "\n\n Please enter the correct Password for this account"
+                  "\n\n Please enter the correct password for this account"
               );
 
           setOpen(true);
         });
     } else {
       !nameCheck.checkValidity() &&
-        setError("Please enter the Display Name to continue");
+        setError("Please enter the display name to continue");
       !passwordCheck.checkValidity() &&
         setError("Please enter the password to continue");
       !emailCheck.checkValidity() &&
@@ -192,15 +191,19 @@ function Login() {
             displayName: username,
           })
           .then(() => {
-            dispatch(ShowLoginPageAction());
-            navigate(-1);
+            sendEmailVerification(auth.currentUser).then(() => {
+              navigate(-1);
+            });
           })
           .catch((e) => {
             alert(e.message);
           });
       })
       .catch((e) => {
-        setError(e.message + "\n\nPlease Sign in with this email.");
+        var index = e.message.search("characters");
+        index === -1
+          ? setError(e.message + "\n\n Please sign in with this email.")
+          : setError(e.message + "\n\n Please try stronger password");
         setOpen(true);
       });
   };
@@ -304,9 +307,7 @@ function Login() {
       >
         <DialogTitle>{"Oops😢 an Error Occured"}</DialogTitle>
         <DialogContent>
-          {/* <DialogContentText id="alert-dialog-slide-description"> */}
           <Typography style={{ whiteSpace: "pre-line" }}>{error}</Typography>
-          {/* </DialogContentText> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Okay</Button>
