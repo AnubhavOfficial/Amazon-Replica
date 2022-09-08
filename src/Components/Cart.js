@@ -99,7 +99,7 @@ function Cart() {
             <Typography className={classes.heading}>Shopping Cart</Typography>
             {cartItems.map((item, i) => {
               return (
-                <div>
+                <div key={i}>
                   <Divider className={classes.divider} />
                   <CartProductCard details={item} key={i} />
                 </div>

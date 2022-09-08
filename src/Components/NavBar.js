@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
@@ -8,7 +8,9 @@ import { Search } from "@material-ui/icons";
 import ReactCountryFlag from "react-country-flag";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ShowLoginPageAction from "./../Actions/ShowLoginPageAction";
+import setUserAction from "../Actions/setUserAction";
 
 const useStyles = makeStyles({
   appbar: {
@@ -83,7 +85,7 @@ const useStyles = makeStyles({
     height: "2rem",
   },
   headerButton: {
-    margin: "0.2rem 0.4rem 0 0.75rem",
+    margin: "0.2rem 0.4rem 0 0.5rem",
     padding: "0.5rem 0.25rem",
     "&:hover": {
       outline: "1px solid",
@@ -130,21 +132,51 @@ const useStyles = makeStyles({
   cartIcon: {
     fontSize: "1.9rem",
   },
+  linkBtn: {
+    textDecoration: "none",
+    color: "white",
+  },
 });
 
 function NavBar() {
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [signedIn, setSignedIn] = useState(false);
+  // const name = useSelector((state) => state.name);
+  const initialUserState = {
+    uid: "",
+    email: "",
+    emailVerified: false,
+    displayName: "",
+    isAnonymous: false,
+    providerData: [
+      {
+        providerId: "",
+        uid: "",
+        displayName: "",
+        email: "",
+        phoneNumber: null,
+        photoURL: null,
+      },
+    ],
+    stsTokenManager: {
+      refreshToken: "",
+      accessToken: "",
+      expirationTime: 0,
+    },
+    createdAt: "",
+    lastLoginAt: "",
+    apiKey: "",
+    appName: "[DEFAULT]",
+  };
+
+  const name = useSelector((state) => state.user.displayName);
+  // const [signedIn, setSignedIn] = useState(false);
+  const dispatch = useDispatch();
   const cartCount = useSelector((state) => state.cart.count);
   const onSignIn = () => {
-    if (signedIn) {
-      setSignedIn(false);
-      setName("");
-    } else {
-      setSignedIn(true);
-      setName("Anubhav");
-    }
+    dispatch(ShowLoginPageAction(true));
+  };
+  const onSignOut = () => {
+    dispatch(setUserAction(initialUserState));
   };
   return (
     <div>
@@ -180,14 +212,20 @@ function NavBar() {
               <AiOutlineCaretDown className={classes.downIcon} />
             </Typography>
           </div>
-          <div className={classes.headerButton}>
-            <Typography className={classes.text}>
-              Hello {signedIn ? name : "Guest"}
-            </Typography>
-            <Typography className={classes.text2} onClick={onSignIn}>
-              {name ? "Sign out" : "Sign in"}
-            </Typography>
-          </div>
+          {name ? (
+            <div className={classes.headerButton} onClick={onSignOut}>
+              <Typography className={classes.text}>Hello {name}</Typography>
+              <Typography className={classes.text2}>Sign out</Typography>
+            </div>
+          ) : (
+            <Link to="/Login" className={classes.linkBtn}>
+              <div className={classes.headerButton} onClick={onSignIn}>
+                <Typography className={classes.text}>Hello Guest</Typography>
+                <Typography className={classes.text2}>Sign in</Typography>
+              </div>
+            </Link>
+          )}
+
           <div className={classes.headerButton}>
             <Typography className={classes.text}>Returns</Typography>
             <Typography className={classes.text2}>& Orders</Typography>

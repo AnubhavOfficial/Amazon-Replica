@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     padding: "1rem 2rem",
   },
   card2: {
-    height: "17vh",
+    height: "20vh",
     width: "27vw",
     display: "flex",
     flexDirection: "column",
@@ -76,8 +76,8 @@ const useStyles = makeStyles({
     width: "18vw",
     cursor: "pointer",
     textAlign: "center",
-    padding: "0.1rem 0.3rem",
-    borderRadius: "0.5rem",
+    padding: "0.2rem 0.3rem",
+    borderRadius: "0.3rem",
     fontSize: "0.95rem",
     textTransform: "none",
     "&:hover": {
