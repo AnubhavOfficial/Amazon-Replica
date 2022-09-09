@@ -13,6 +13,7 @@ import AddedToCart from "./Components/AddedToCart";
 import Login from "./Components/Login";
 import { auth } from "./Firebase";
 import setUserAction from "./Actions/setUserAction";
+import { PaytmButton } from "./paytm-button/PaytmButton";
 
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cart") || '{"items":[],"count":0}'
@@ -72,7 +73,7 @@ function App() {
   }, [dispatch]);
   return (
     <div>
-      <Router>
+      {/* <Router>
         <Routes>
           <Route
             path="/"
@@ -136,7 +137,8 @@ function App() {
             }
           />
         </Routes>
-      </Router>
+      </Router> */}
+      <PaytmButton />
     </div>
   );
 }
