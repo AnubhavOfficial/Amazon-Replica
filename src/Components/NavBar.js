@@ -16,6 +16,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import SignedInAction from "../Actions/SignedInAction";
 
 const useStyles = makeStyles({
   appbar: {
@@ -177,6 +178,7 @@ function NavBar() {
   const cartCount = useSelector((state) => state.cart.count);
   const onSignOut = async () => {
     dispatch(setUserAction(initialUserState));
+    dispatch(SignedInAction(false));
     setTimeout(() => {
       setOpen(true);
     }, 300);

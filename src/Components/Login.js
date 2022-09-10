@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../Firebase";
 import setUserAction from "../Actions/setUserAction";
+import SignedInAction from "./../Actions/SignedInAction";
 
 const useStyles = makeStyles({
   main: {
@@ -153,6 +154,7 @@ function Login() {
         .then(() => {
           var user = auth.currentUser;
           dispatch(setUserAction(user));
+          dispatch(SignedInAction(true));
           navigate(-1);
         })
         .catch((e) => {
@@ -192,6 +194,7 @@ function Login() {
           })
           .then(() => {
             sendEmailVerification(auth.currentUser).then(() => {
+              dispatch(SignedInAction(true));
               navigate(-1);
             });
           })
