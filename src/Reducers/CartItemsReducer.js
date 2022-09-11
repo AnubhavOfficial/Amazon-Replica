@@ -5,7 +5,6 @@ const CartItemsReducer = (state = initialState, action) => {
     case "ADD_NEW_PRODUCT_TO_CART":
       let newItem = action.value;
       newItem.price = Math.floor(newItem.price * 79.67);
-      console.log(newItem);
       newItem.quantity = action.quantity;
       return {
         ...state,

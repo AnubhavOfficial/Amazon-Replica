@@ -189,7 +189,6 @@ const ProductDescription = () => {
         break;
       }
     }
-    console.log(itemQuantity);
     unique
       ? dispatch(AddNewProductToCartAction(product, itemQuantity))
       : dispatch(AddExistingProductToCartAction(product.id, itemQuantity));
@@ -290,7 +289,6 @@ const ProductDescription = () => {
                     className={classes.select}
                     onChange={(e) => {
                       setItemQuantity(e.target.value);
-                      console.log(e.target.value);
                     }}
                   >
                     <option value="1">1</option>
