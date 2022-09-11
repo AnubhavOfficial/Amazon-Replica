@@ -4,6 +4,8 @@ const CartItemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_NEW_PRODUCT_TO_CART":
       let newItem = action.value;
+      newItem.price = Math.floor(newItem.price * 79.67);
+      console.log(newItem);
       newItem.quantity = action.quantity;
       return {
         ...state,
@@ -39,6 +41,12 @@ const CartItemsReducer = (state = initialState, action) => {
       return {
         items: item,
         count: parseInt(state.count) - parseInt(action.quantity),
+      };
+
+    case "CLEAR_CART":
+      return {
+        items: [],
+        count: 0,
       };
     default:
       return state;

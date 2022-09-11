@@ -73,7 +73,7 @@ const useStyles = makeStyles({
   },
 });
 const rupeeCalculate = (val) => {
-  const dec = Math.ceil(val);
+  const dec = Math.floor(val);
   return dec;
 };
 const ProductCard = ({ item }) => {

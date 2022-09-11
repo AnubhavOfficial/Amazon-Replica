@@ -6,6 +6,7 @@ import CartProductCard from "./CartProductCard";
 import emptyCart from "../Assets/images/emptyCart.png";
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
+import CheckoutButton from "./CheckoutButton";
 
 const useStyles = makeStyles({
   main: {
@@ -66,21 +67,6 @@ const useStyles = makeStyles({
     textAlign: "end",
     paddingRight: "1rem",
   },
-  proceedToBuy: {
-    background: "#FFD814",
-    boxShadow: "0.5px 0.5px 2px 0.5px #F7CA00",
-    width: "18vw",
-    cursor: "pointer",
-    textAlign: "center",
-    padding: "0.2rem 0.3rem",
-    borderRadius: "0.3rem",
-    fontSize: "1rem",
-    textTransform: "none",
-    marginTop: "1rem",
-    "&:hover": {
-      background: "#F7CA00",
-    },
-  },
   subTotalText: {
     fontSize: "1.2rem",
     marginTop: "1rem",
@@ -116,9 +102,9 @@ function Cart() {
   const calcTotal = () => {
     let total = 0;
     for (let i = 0; i < cartItems.length; i++) {
-      total = cartItems[i].price * 79.67 * cartItems[i].quantity + total;
+      total = cartItems[i].price * cartItems[i].quantity + total;
     }
-    return Math.ceil(total);
+    return Math.floor(total);
   };
 
   return (
@@ -189,9 +175,7 @@ function Cart() {
             Subtotal ({cartCount} items) :{" "}
             <b>₹ {calcTotal().toLocaleString()}</b>
           </Typography>
-          <Typography className={classes.proceedToBuy}>
-            Proceed to Buy
-          </Typography>
+          <CheckoutButton quantity={0} />
         </div>
       )}
     </div>

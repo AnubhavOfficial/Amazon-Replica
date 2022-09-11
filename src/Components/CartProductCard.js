@@ -1,6 +1,6 @@
 import { Card, makeStyles, Typography } from "@material-ui/core";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import RemoveItemFromCartAction from "./../Actions/RemoveItemFromCartAction";
 
 const useStyles = makeStyles({
@@ -54,9 +54,8 @@ function CartProductCard(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const calcPrice = (val) => {
-    return Math.ceil(val);
+    return Math.floor(val);
   };
-
   const deleteFromCart = () => {
     dispatch(RemoveItemFromCartAction(details.id, details.quantity));
   };
@@ -72,9 +71,7 @@ function CartProductCard(props) {
           }}
         >
           <Typography className={classes.title}>{details.title}</Typography>
-          <Typography>
-            ₹ {calcPrice(details.price * 79.67).toLocaleString()}
-          </Typography>
+          <Typography>₹ {calcPrice(details.price).toLocaleString()}</Typography>
         </div>
         <Typography className={classes.stock}>In stock</Typography>
         <div className={classes.giftDiv}>

@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiChevronLeft } from "react-icons/bi";
 import { BiRupee } from "react-icons/bi";
+import CheckoutButton from "./CheckoutButton";
 const useStyles = makeStyles({
   main: {
     marginTop: "10vh",
@@ -70,30 +71,29 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
   },
-  proceedToBuy: {
-    background: "#FFD814",
-    boxShadow: "0.5px 0.5px 2px 0.5px #F7CA00",
+  goToCart: {
     width: "18vw",
-    cursor: "pointer",
-    textAlign: "center",
     padding: "0.2rem 0.3rem",
     borderRadius: "0.3rem",
-    fontSize: "0.95rem",
-    textTransform: "none",
-    "&:hover": {
-      background: "#F7CA00",
-    },
-  },
-  goToCart: {
     border: "1px solid lightgrey",
-    background: "white",
+    cursor: "pointer",
+    fontSize: "1rem",
+    textAlign: "center",
+    marginTop: "0.5rem",
     boxShadow: "0.5px 0.5px 2px 0px grey",
     "&:hover": {
       background: "#F7FAFA",
     },
   },
+  gotoCartLink: {
+    textDecoration: "none",
+    color: "black",
+  },
   bottomButton: {
     height: "20vh",
+  },
+  link: {
+    textDecoration: "none",
   },
 });
 function AddedToCart() {
@@ -105,18 +105,15 @@ function AddedToCart() {
   const product = useSelector((state) => state.products[id - 1]);
   const cartItems = useSelector((state) => state.cart.items);
   const quantity = useSelector((state) => state.cart.count);
-  const redirect = () => {
-    window.location.replace(`/`);
-  };
+  // const redirect = () => {
+  //   window.location.replace(`/`);
+  // };
   const cartTotal = () => {
     let total = 0;
     for (let i = 0; i < cartItems.length; i++) {
-      total = cartItems[i].price * 79.67 * cartItems[i].quantity + total;
+      total = cartItems[i].price * cartItems[i].quantity + total;
     }
-    return Math.ceil(total);
-  };
-  const goToCart = () => {
-    window.location.replace(`/Cart`);
+    return Math.floor(total);
   };
   const calcItemQuantity = () => {
     let itemQuantity = 0;
@@ -152,26 +149,23 @@ function AddedToCart() {
                 {cartTotal().toLocaleString()}
               </Typography>
 
-              <Typography className={classes.proceedToBuy}>
-                Proceed to Buy ( {quantity} items)
-              </Typography>
+              <CheckoutButton quantity={quantity} />
 
-              <Typography
-                className={`${classes.proceedToBuy} ${classes.goToCart}`}
-                onClick={goToCart}
-              >
-                Go to Cart
-              </Typography>
+              <Link to="/Cart" className={classes.gotoCartLink}>
+                <Typography className={classes.goToCart}>Go to Cart</Typography>
+              </Link>
             </div>
           </div>
           <div className={classes.bottomButton}>
             <center>
-              <Button className={classes.backBtn} onClick={redirect}>
-                <BiChevronLeft />{" "}
-                <Typography className={classes.buttonText}>
-                  See more products
-                </Typography>
-              </Button>
+              <Link to="/" className={classes.link}>
+                <Button className={classes.backBtn}>
+                  <BiChevronLeft />{" "}
+                  <Typography className={classes.buttonText}>
+                    See more products
+                  </Typography>
+                </Button>
+              </Link>
             </center>
           </div>
         </div>
