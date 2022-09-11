@@ -80,14 +80,11 @@ const useStyles = makeStyles({
     fontSize: "1rem",
     textAlign: "center",
     marginTop: "0.5rem",
+    color: "black",
     boxShadow: "0.5px 0.5px 2px 0px grey",
     "&:hover": {
       background: "#F7FAFA",
     },
-  },
-  gotoCartLink: {
-    textDecoration: "none",
-    color: "black",
   },
   bottomButton: {
     height: "20vh",
@@ -105,9 +102,6 @@ function AddedToCart() {
   const product = useSelector((state) => state.products[id - 1]);
   const cartItems = useSelector((state) => state.cart.items);
   const quantity = useSelector((state) => state.cart.count);
-  // const redirect = () => {
-  //   window.location.replace(`/`);
-  // };
   const cartTotal = () => {
     let total = 0;
     for (let i = 0; i < cartItems.length; i++) {
@@ -151,7 +145,7 @@ function AddedToCart() {
 
               <CheckoutButton quantity={quantity} />
 
-              <Link to="/Cart" className={classes.gotoCartLink}>
+              <Link to="/Cart" className={classes.link}>
                 <Typography className={classes.goToCart}>Go to Cart</Typography>
               </Link>
             </div>
