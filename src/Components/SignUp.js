@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { makeStyles, Typography } from "@material-ui/core";
-import amazonLogo from "../Assets/images/amazonLogoBlack.png";
-import { sendEmailVerification } from "firebase/auth";
+import React from "react";
+import { Typography } from "@material-ui/core";
 import {
   Button,
   Dialog,
@@ -10,11 +8,15 @@ import {
   DialogTitle,
   Divider,
 } from "@mui/material";
+import { makeStyles } from "@material-ui/styles";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../Firebase";
-import setUserAction from "../Actions/setUserAction";
+import { sendEmailVerification } from "firebase/auth";
 import SignedInAction from "./../Actions/SignedInAction";
+import amazonLogo from "../Assets/images/amazonLogoBlack.png";
+import setUserAction from "../Actions/setUserAction";
 
 const useStyles = makeStyles({
   main: {
@@ -34,7 +36,7 @@ const useStyles = makeStyles({
     height: "2.6rem",
   },
   formDiv: {
-    height: "20rem",
+    height: "23.5rem",
     width: "19rem",
     margin: "1rem",
     padding: "1rem 2rem",
@@ -119,8 +121,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     background: "transparent",
-    marginTop: "1rem",
-    height: "5rem",
+    height: "4.5rem",
     borderTop: "0.15rem solid #d9d7d7",
   },
   footerConditionsDiv: {
@@ -134,38 +135,52 @@ const useStyles = makeStyles({
     marginTop: "0.5rem",
   },
 });
-function Login() {
+
+function SignUp() {
   const classes = useStyles();
   const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const signIn = (e) => {
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const createNewAccount = (e) => {
     e.preventDefault();
     var form = document.getElementById("form");
+    var nameCheck = document.getElementById("name");
     var emailCheck = document.getElementById("email");
     var passwordCheck = document.getElementById("password");
 
     if (form.checkValidity()) {
       auth
-        .signInWithEmailAndPassword(email, pass)
+        .createUserWithEmailAndPassword(email, pass)
         .then(() => {
           var user = auth.currentUser;
-          dispatch(setUserAction(user));
-          dispatch(SignedInAction(true));
-          navigate("/");
+          user
+            .updateProfile({
+              displayName: username,
+            })
+            .then(() => {
+              sendEmailVerification(auth.currentUser).then(() => {
+                dispatch(SignedInAction(true));
+                dispatch(setUserAction(user));
+                navigate("/");
+              });
+            })
+            .catch((e) => {
+              alert(e.message);
+            });
         })
         .catch((e) => {
-          console.log(e);
-          var index = e.message.search("password");
+          var index = e.message.search("characters");
           index === -1
-            ? setError(e.message + "\n\n Create a new account for this email")
-            : setError(
-                e.message +
-                  "\n\n Please enter the correct password for this account"
-              );
-
+            ? setError(e.message + "\n\n Please sign in with this email.")
+            : setError(e.message + "\n\n Please try stronger password");
           setOpen(true);
         });
     } else {
@@ -173,46 +188,16 @@ function Login() {
         setError("Please enter the password to continue");
       !emailCheck.checkValidity() &&
         setError("Please enter valid email address");
-      setOpen(true);
+      !nameCheck.checkValidity() &&
+        setError("Please enter display name to continue ");
       !emailCheck.checkValidity() &&
         !passwordCheck.checkValidity() &&
+        !nameCheck.checkValidity() &&
         setError("Please enter all the fields to continue");
+
+      setOpen(true);
     }
   };
-  // const createNewAccount = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, pass)
-  //     .then(() => {
-  //       var user = auth.currentUser;
-  //       user
-  //         .updateProfile({
-  //           displayName: username,
-  //         })
-  //         .then(() => {
-  //           sendEmailVerification(auth.currentUser).then(() => {
-  //             dispatch(SignedInAction(true));
-  //             navigate(-1);
-  //           });
-  //         })
-  //         .catch((e) => {
-  //           alert(e.message);
-  //         });
-  //     })
-  //     .catch((e) => {
-  //       var index = e.message.search("characters");
-  //       index === -1
-  //         ? setError(e.message + "\n\n Please sign in with this email.")
-  //         : setError(e.message + "\n\n Please try stronger password");
-  //       setOpen(true);
-  //     });
-  // };
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div className={classes.main}>
       <div className={classes.upperDiv}>
@@ -220,9 +205,9 @@ function Login() {
           <img src={amazonLogo} alt="" className={classes.image} />
         </Link>
         <div className={classes.formDiv}>
-          <Typography className={classes.heading}>Sign in </Typography>
+          <Typography className={classes.heading}>Sign up</Typography>
           <form id="form">
-            {/* <Typography className={classes.label}>Display Name</Typography>
+            <Typography className={classes.label}>Display Name</Typography>
             <input
               id="name"
               type="text"
@@ -233,7 +218,7 @@ function Login() {
               onChange={(e) => {
                 setUsername(e.target.value);
               }}
-            /> */}
+            />
             <Typography className={classes.label}>
               Email or mobile phone number
             </Typography>
@@ -261,9 +246,9 @@ function Login() {
             <button
               type="submit"
               className={classes.submitBtn}
-              onClick={signIn}
+              onClick={createNewAccount}
             >
-              Sign in
+              Create your Amazon account
             </button>
           </form>
           <Typography className={classes.conditions}>
@@ -291,12 +276,10 @@ function Login() {
           textAlign="center"
           sx={{ borderBottomWidth: "50px" }}
         >
-          New to Amazon?
+          Already a Member?
         </Divider>
-        <Link to="/SignUp">
-          <button className={classes.createNewAccountbutton}>
-            Create your Amazon account
-          </button>
+        <Link to="/Login">
+          <button className={classes.createNewAccountbutton}>Sign In</button>
         </Link>
       </div>
       <Dialog
@@ -345,4 +328,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

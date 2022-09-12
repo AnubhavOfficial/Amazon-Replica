@@ -16,6 +16,7 @@ import setUserAction from "./Actions/setUserAction";
 import SignedInAction from "./Actions/SignedInAction";
 import CheckoutSuccess from "./Components/CheckoutSuccess";
 import NotFound from "./Components/NotFound";
+import SignUp from "./Components/SignUp";
 
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cart") || '{"items":[],"count":0}'
@@ -161,13 +162,20 @@ function App() {
             }
           />
           <Route
+            path="/SignUp"
+            exact
+            element={
+              <>
+                <SignUp />
+              </>
+            }
+          />
+          <Route
             path="*"
             exact
             element={
               <>
-                <NavBar />
                 <NotFound />
-                <Footer />
               </>
             }
           />
