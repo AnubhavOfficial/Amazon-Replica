@@ -1,8 +1,9 @@
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import axios from "axios";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import OrdersAction from "./../Actions/OrdersAction";
 const useStyles = makeStyles({
   proceedToBuy: {
     background: "#FFD814",
@@ -28,7 +29,9 @@ function CheckoutButton({ quantity }) {
   const user = useSelector((state) => state.user);
   const signedIn = useSelector((state) => state.signedIn);
   const classes = useStyles();
+  const dispatch = useDispatch();
   const handleCheckout = () => {
+    dispatch(OrdersAction(cartItems));
     axios
       .post(`http://localhost:5000/checkout`, {
         cartItems,
@@ -37,7 +40,7 @@ function CheckoutButton({ quantity }) {
       })
       .then((res) => {
         if (res.data.url) {
-          window.location.href = res.data.url;
+          // window.location.href = res.data.url;
           // console.log(res);
         }
       })
