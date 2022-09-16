@@ -17,32 +17,39 @@ import SignedInAction from "./Actions/SignedInAction";
 import CheckoutSuccess from "./Components/CheckoutSuccess";
 import NotFound from "./Components/NotFound";
 import SignUp from "./Components/SignUp";
+import OrdersAction from "./Actions/OrdersAction";
 
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cart") || '{"items":[],"count":0}'
 );
 const signedInFromLocalStorage = JSON.parse(
-  localStorage.getItem("signedIn") || '{"signedIn":false}'
+  localStorage.getItem("signedIn") || "false"
+);
+const ordersFromLocalStorage = JSON.parse(
+  localStorage.getItem("orders") || "[]"
 );
 function App() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const signedIn = useSelector((state) => state.signedIn);
+  const orders = useSelector((state) => state.orders);
 
   useEffect(() => {
     const apiCall = async () => {
       const response = await axios("https://fakestoreapi.com/products");
       localStorage.setItem("cart", JSON.stringify(cart));
       localStorage.setItem("signedIn", JSON.stringify(signedIn));
+      localStorage.setItem("orders", JSON.stringify(orders));
       dispatch(setProductsAction(response.data));
     };
 
     apiCall();
-  }, [cart, dispatch, signedIn]);
+  }, [cart, dispatch, orders, signedIn]);
 
   useEffect(() => {
     dispatch(SetCartFromLocalStorageAction(cartFromLocalStorage));
     dispatch(SignedInAction(signedInFromLocalStorage));
+    dispatch(OrdersAction(ordersFromLocalStorage));
   }, [dispatch]);
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
