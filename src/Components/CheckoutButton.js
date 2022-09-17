@@ -40,8 +40,8 @@ function CheckoutButton({ quantity }) {
       })
       .then((res) => {
         if (res.data.url) {
-          window.location.href = res.data.url;
-          // console.log(res);
+          // window.location.href = res.data.url;
+          console.log(res);
         }
       })
       .catch((err) => {
