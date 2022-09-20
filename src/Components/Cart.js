@@ -11,9 +11,9 @@ import CheckoutButton from "./CheckoutButton";
 const useStyles = makeStyles({
   main: {
     background: "#EAEDED",
-    // width: "70%",
     marginTop: "4rem",
     display: "flex",
+    minHeight: "100vh",
   },
   leftDiv: {
     margin: "2rem 1rem",
@@ -26,13 +26,23 @@ const useStyles = makeStyles({
     padding: "2rem",
     borderRadius: "0.2rem",
   },
+  lowerRightDiv: {
+    margin: "1rem",
+    background: "white",
+    height: "5rem",
+    padding: "1rem",
+    borderRadius: "0.2rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   innerleftDiv: {
     padding: "1rem",
     background: "white",
   },
   footer: {
     fontSize: "0.8rem",
-    marginTop: "1rem",
+    marginTop: "2rem",
   },
   divider: {
     margin: "0.7rem 0",
@@ -90,6 +100,9 @@ const useStyles = makeStyles({
       color: "#D2511F",
       textDecoration: "underline",
     },
+  },
+  continueShopping: {
+    fontSize: "1.5rem",
   },
 });
 function Cart() {
@@ -151,31 +164,38 @@ function Cart() {
           time to pay.
         </Typography>
       </div>
-      {cartItems.length === 0 ? (
-        <></>
-      ) : (
-        <div className={classes.rightDiv}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <FaCheckCircle className={classes.checkIcon} />
-            <Typography className={classes.freeDelivery}>
-              Your order is eligible for FREE Delivery.
+      {cartItems.length !== 0 && (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className={classes.rightDiv}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <FaCheckCircle className={classes.checkIcon} />
+              <Typography className={classes.freeDelivery}>
+                Your order is eligible for FREE Delivery.
+              </Typography>
+            </div>
+            <Typography className={classes.checkoutText}>
+              Select this option at checkout.{" "}
+              <a
+                href="https://www.amazon.in/gp/help/customer/display.html?nodeId=200904360&pop-up=1"
+                target="blank"
+                className={classes.checkoutLink}
+              >
+                Details
+              </a>
             </Typography>
+            <Typography className={classes.subTotalText}>
+              Subtotal ({cartCount} items) :{" "}
+              <b>₹ {calcTotal().toLocaleString()}</b>
+            </Typography>
+            <CheckoutButton quantity={0} />
           </div>
-          <Typography className={classes.checkoutText}>
-            Select this option at checkout.{" "}
-            <a
-              href="https://www.amazon.in/gp/help/customer/display.html?nodeId=200904360&pop-up=1"
-              target="blank"
-              className={classes.checkoutLink}
-            >
-              Details
-            </a>
-          </Typography>
-          <Typography className={classes.subTotalText}>
-            Subtotal ({cartCount} items) :{" "}
-            <b>₹ {calcTotal().toLocaleString()}</b>
-          </Typography>
-          <CheckoutButton quantity={0} />
+          <div className={classes.lowerRightDiv}>
+            <Link to="/" className={classes.link}>
+              <Typography className={classes.continueShopping}>
+                Continue Shopping
+              </Typography>
+            </Link>
+          </div>
         </div>
       )}
     </div>

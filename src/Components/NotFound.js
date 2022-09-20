@@ -37,10 +37,8 @@ const useStyles = makeStyles({
   text: {
     fontWeight: "bold",
     marginTop: "0.5rem",
-    // width: "45%",
     display: "flex",
     alignItems: "center",
-    // justifyContent: "space-around",
   },
   icon2: {
     color: "#CC6600",

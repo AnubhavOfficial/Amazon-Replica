@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import amazonLogo from "../Assets/images/amazonLogoBlack.png";
-import { sendEmailVerification } from "firebase/auth";
 import {
   Button,
   Dialog,
@@ -17,9 +16,6 @@ import setUserAction from "../Actions/setUserAction";
 import SignedInAction from "./../Actions/SignedInAction";
 
 const useStyles = makeStyles({
-  main: {
-    // background: "#F8F8F8",
-  },
   upperDiv: {
     padding: "0.5rem",
     display: "flex",
@@ -179,33 +175,6 @@ function Login() {
         setError("Please enter all the fields to continue");
     }
   };
-  // const createNewAccount = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, pass)
-  //     .then(() => {
-  //       var user = auth.currentUser;
-  //       user
-  //         .updateProfile({
-  //           displayName: username,
-  //         })
-  //         .then(() => {
-  //           sendEmailVerification(auth.currentUser).then(() => {
-  //             dispatch(SignedInAction(true));
-  //             navigate(-1);
-  //           });
-  //         })
-  //         .catch((e) => {
-  //           alert(e.message);
-  //         });
-  //     })
-  //     .catch((e) => {
-  //       var index = e.message.search("characters");
-  //       index === -1
-  //         ? setError(e.message + "\n\n Please sign in with this email.")
-  //         : setError(e.message + "\n\n Please try stronger password");
-  //       setOpen(true);
-  //     });
-  // };
 
   const [open, setOpen] = React.useState(false);
 
@@ -222,18 +191,6 @@ function Login() {
         <div className={classes.formDiv}>
           <Typography className={classes.heading}>Sign in </Typography>
           <form id="form">
-            {/* <Typography className={classes.label}>Display Name</Typography>
-            <input
-              id="name"
-              type="text"
-              maxLength="10"
-              className={classes.input}
-              required
-              placeholder="Enter your name ( Max length is 10 characters )"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            /> */}
             <Typography className={classes.label}>
               Email or mobile phone number
             </Typography>

@@ -1,5 +1,5 @@
 import { Button, Divider, makeStyles, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SetCartFromLocalStorageAction from "./../Actions/SetCartFromLocalStorageAction";
@@ -12,7 +12,6 @@ const useStyles = makeStyles({
     display: "flex",
     height: "calc(100vh - 2.5rem)",
     flexDirection: "column",
-    // justifyContent: "center",
     alignItems: "center",
     background: "white",
     padding: "1rem 2rem",
@@ -22,8 +21,6 @@ const useStyles = makeStyles({
     width: "99%",
     display: "flex",
     background: "#ebebeb",
-    // justifyContent: "center",
-    // alignItems: "center",
     flexDirection: "column",
     borderRadius: "0.3rem",
     marginTop: "1.5rem",
@@ -70,11 +67,9 @@ const useStyles = makeStyles({
   },
   left: {
     width: "50%",
-    // height: "100%",
   },
   right: {
     width: "50%",
-    // height: "100%",
     overflow: "none",
   },
   orderImage: {

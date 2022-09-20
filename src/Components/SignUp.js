@@ -19,9 +19,6 @@ import amazonLogo from "../Assets/images/amazonLogoBlack.png";
 import setUserAction from "../Actions/setUserAction";
 
 const useStyles = makeStyles({
-  main: {
-    // background: "#F8F8F8",
-  },
   upperDiv: {
     padding: "0.5rem",
     display: "flex",
