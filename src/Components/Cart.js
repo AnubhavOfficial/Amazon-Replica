@@ -103,6 +103,7 @@ const useStyles = makeStyles({
   },
   continueShopping: {
     fontSize: "1.5rem",
+    background: "gold",
   },
 });
 function Cart() {
