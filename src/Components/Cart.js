@@ -102,8 +102,14 @@ const useStyles = makeStyles({
     },
   },
   continueShopping: {
-    fontSize: "1.5rem",
-    background: "gold",
+    fontSize: "1.3rem",
+    background: "#FFD814",
+    padding: "0.3rem 3rem",
+    borderRadius: "0.3rem",
+    color: "black",
+    "&:hover": {
+      background: "#F7CA00",
+    },
   },
 });
 function Cart() {
@@ -157,6 +163,16 @@ function Cart() {
             </div>
           </div>
         )}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            paddingRight: "2rem",
+            paddingTop: "1rem",
+          }}
+        >
+          <Typography style={{ fontSize: "1.3rem" }}>Clear Cart</Typography>
+        </div>
         <Typography className={classes.footer}>
           The price and availability of items at Amazon.in are subject to
           change. The shopping cart is a temporary place to store a list of your
