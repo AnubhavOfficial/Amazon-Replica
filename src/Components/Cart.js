@@ -127,6 +127,9 @@ function Cart() {
     return Math.floor(total);
   };
 
+  const clearCart = () => {
+    //dispatch action clear cart
+  };
   return (
     <div className={classes.main}>
       <div className={classes.leftDiv}>
@@ -171,7 +174,9 @@ function Cart() {
             paddingTop: "1rem",
           }}
         >
-          <Typography style={{ fontSize: "1.3rem" }}>Clear Cart</Typography>
+          <Typography style={{ fontSize: "1.3rem" }} onClick={clearCart}>
+            Clear Cart
+          </Typography>
         </div>
         <Typography className={classes.footer}>
           The price and availability of items at Amazon.in are subject to
