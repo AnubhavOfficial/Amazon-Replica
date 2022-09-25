@@ -1,12 +1,13 @@
 import { Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartProductCard from "./CartProductCard";
 import emptyCart from "../Assets/images/emptyCart.png";
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 import CheckoutButton from "./CheckoutButton";
+import ClearCartAction from "./../Actions/ClearCartAction";
 
 const useStyles = makeStyles({
   main: {
@@ -111,6 +112,15 @@ const useStyles = makeStyles({
       background: "#F7CA00",
     },
   },
+  clearCart: {
+    fontSize: "1.2rem",
+    color: "#007185",
+    "&:hover": {
+      cursor: "pointer",
+      color: "#C7511F",
+      textDecoration: "underline",
+    },
+  },
 });
 function Cart() {
   useEffect(() => {
@@ -119,6 +129,7 @@ function Cart() {
   const classes = useStyles();
   const cartItems = useSelector((state) => state.cart.items);
   const cartCount = useSelector((state) => state.cart.count);
+  const dispatch = useDispatch();
   const calcTotal = () => {
     let total = 0;
     for (let i = 0; i < cartItems.length; i++) {
@@ -129,6 +140,7 @@ function Cart() {
 
   const clearCart = () => {
     //dispatch action clear cart
+    dispatch(ClearCartAction());
   };
   return (
     <div className={classes.main}>
@@ -174,9 +186,11 @@ function Cart() {
             paddingTop: "1rem",
           }}
         >
-          <Typography style={{ fontSize: "1.3rem" }} onClick={clearCart}>
-            Clear Cart
-          </Typography>
+          {cartItems.length !== 0 && (
+            <Typography onClick={clearCart} className={classes.clearCart}>
+              Clear Cart
+            </Typography>
+          )}
         </div>
         <Typography className={classes.footer}>
           The price and availability of items at Amazon.in are subject to
