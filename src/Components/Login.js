@@ -150,7 +150,7 @@ function Login() {
           var user = auth.currentUser;
           dispatch(setUserAction(user));
           dispatch(SignedInAction(true));
-          navigate("/");
+          navigate(-1);
         })
         .catch((e) => {
           console.log(e);

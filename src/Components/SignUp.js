@@ -166,7 +166,7 @@ function SignUp() {
               sendEmailVerification(auth.currentUser).then(() => {
                 dispatch(SignedInAction(true));
                 dispatch(setUserAction(user));
-                navigate("/");
+                navigate(-2);
               });
             })
             .catch((e) => {

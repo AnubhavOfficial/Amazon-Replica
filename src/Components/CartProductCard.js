@@ -2,6 +2,7 @@ import { Card, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import { useDispatch } from "react-redux";
 import RemoveItemFromCartAction from "./../Actions/RemoveItemFromCartAction";
+import UpdateProductAction from "./../Actions/UpdateProductAction";
 
 const useStyles = makeStyles({
   main: {
@@ -48,6 +49,23 @@ const useStyles = makeStyles({
       color: "#007185",
     },
   },
+  select: {
+    width: "3rem",
+    marginLeft: "1rem",
+    height: "2rem",
+    outline: "none",
+    // textAlign: "center",
+    paddingLeft: "0.5rem",
+    cursor: "pointer",
+  },
+  quantityDiv: {
+    display: "flex",
+    alignItems: "center",
+    marginTop: "0.5rem",
+  },
+  quantity: {
+    fontWeight: "bold",
+  },
 });
 function CartProductCard(props) {
   const { details } = props;
@@ -86,7 +104,27 @@ function CartProductCard(props) {
             Learn more
           </a>
         </div>
-        <Typography>Quantity: {details.quantity}</Typography>
+        <div className={classes.quantityDiv}>
+          <Typography className={classes.quantity}>Quantity: </Typography>
+          <select
+            className={classes.select}
+            onChange={(e) => {
+              // setItemQuantity(e.target.value);
+              dispatch(UpdateProductAction(details.id, e.target.value));
+            }}
+            value={details.quantity}
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+          </select>
+        </div>
         <Typography
           className={`${classes.link} ${classes.DeleteButton}`}
           onClick={deleteFromCart}

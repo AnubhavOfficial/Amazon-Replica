@@ -25,6 +25,21 @@ const CartItemsReducer = (state = initialState, action) => {
         items: obj,
         count: parseInt(state.count) + parseInt(action.quantity),
       };
+    case "UPDATE_PRODUCT":
+      let obj2 = [...state.items];
+      let newQuantity;
+      for (let i = 0; i < obj2.length; i++) {
+        if (obj2[i].id === action.id) {
+          newQuantity = parseInt(obj2[i].quantity) - parseInt(action.quantity);
+          obj2[i].quantity = parseInt(action.quantity);
+          break;
+        }
+      }
+
+      return {
+        items: obj2,
+        count: parseInt(state.count) - parseInt(newQuantity),
+      };
     case "SET_CART_FROM_LOCAL_STORAGE":
       return action.value;
 
